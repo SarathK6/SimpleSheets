@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleSheets.Services\SimpleSheets.Services.csproj" />
+  </ItemGroup>
+
 </Project>
