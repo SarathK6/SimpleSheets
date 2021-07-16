@@ -1,0 +1,80 @@
+﻿@model SimpleSheets.Data.Models.TimeSheet
+@{ 
+    var mapIds = ViewData["mapId"] as IEnumerable<SimpleSheets.Data.Models.EmployeeProjectMap>;
+    var timeTypes = ViewData["timeType"] as IEnumerable<SimpleSheets.Data.Models.TimeType>;
+}
+<h4>TimeSheet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTimeSheet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" disabled/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MapId" class="control-label"></label>
+                @*<input asp-for="MapId" class="form-control" />*@
+                <select asp-for="MapId" name="MapId" class="form-control">
+                    <option value="0">Select</option>
+                    @{
+                        foreach (var mapId in mapIds)
+                        {
+                            <option value="@mapId.Id">@mapId.ProjectAssigned</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="MapId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hours" class="control-label"></label>
+                <input asp-for="Hours" class="form-control" />
+                <span asp-validation-for="Hours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeTypeId" class="control-label"></label>
+                @*<input asp-for="TimeTypeId" class="form-control" />*@
+                <select asp-for="TimeTypeId" name="TimeTypeId" class="form-control">
+                    <option value="0">Select</option>
+                    @{
+                        foreach (var timeType in timeTypes)
+                        {
+                            <option value="@timeType.Id">@timeType.Timetype</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="TimeTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                   <input class="form-check-input" asp-for="ApprovalStatus" disabled/> @Html.DisplayNameFor(model => model.ApprovalStatus)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedOn" class="control-label"></label>
+                <input asp-for="CreatedOn" class="form-control" value="@DateTime.Now" disabled/>
+                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Last_updated" class="control-label"></label>
+                <input asp-for="Last_updated" class="form-control" value="@DateTime.Now" disabled/>
+                <span asp-validation-for="Last_updated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
