@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using SimpleSheets.Data.Enums;
 using SimpleSheets.Data.Impls;
 using SimpleSheets.Data.Interface;
+using SimpleSheets.Services.Impls;
+using SimpleSheets.Services.Interfaces;
 
 namespace SimpleSheets
 {
@@ -34,6 +36,8 @@ namespace SimpleSheets
                 connectionType, connectionString));
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>
                (d => new DbConnectionFactory(connectionDetails));
+            services.AddSingleton<IAdminRepo, AdminRepo>(); 
+            services.AddSingleton<IAdminService, AdminService>();
             services.AddControllersWithViews();
         }
 
@@ -61,7 +65,7 @@ namespace SimpleSheets
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }
