@@ -51,5 +51,66 @@ namespace SimpleSheets.Controllers
             var employeeProjectMap = _adminService.GetEmployeeProjectMap();
             return View(employeeProjectMap);
         }
+        [HttpGet]
+        public IActionResult CreateEmployee()
+        {
+            var roles = _adminService.GetRoles();
+            ViewData["Roles"] = roles;
+            return View();
+        }
+        
+        public IActionResult CreateEmployee(Employee employee)
+        {
+            employee.Last_updated = DateTime.Now;
+            employee.CreatedOn = DateTime.Now;
+            _adminService.CreateEmployee(employee);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CreateProjects()
+        {
+            return View();
+        }
+        public IActionResult CreateProjects(Projects projects)
+        {
+            _adminService.CreateProjects(projects);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CreateRoles()
+        {
+            return View();
+        }
+        public IActionResult CreateRoles(Roles roles)
+        {
+            roles.CreatedOn = DateTime.Now;
+            roles.Last_updated = DateTime.Now;
+            _adminService.CreateRoles(roles);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CreateTimeType()
+        {
+            return View();
+        }
+        public IActionResult CreateTimeType(TimeType timeTypeCreated)
+        {
+            _adminService.CreateTimeType(timeTypeCreated);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CreateEmployeeProjectMap()
+        {
+            var employees = _adminService.GetEmployee();
+            var projects = _adminService.GetProjects();
+            ViewData["Employees"] = employees;
+            ViewData["Projects"] = projects;
+            return View();
+        }
+        public IActionResult CreateEmployeeProjectMap(EmployeeProjectMapCreate employeeProjectMapCreate)
+        {
+            _adminService.CreateEmployeeProjectMap(employeeProjectMapCreate);
+            return RedirectToAction("Index");
+        }
     }
 }
