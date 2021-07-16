@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "TimeSheets"; 
+}
+@*<script>
+    $(document).ready(function () {
+
+        $("#AddSpan").click(function () {
+
+            var rowhtml = $("#repetRow").html();
+            $("#mytab").append(rowhtml);
+        });
+
+    });
+</script>*@
+<h1>TimeSheets</h1>
+
+
+<table id="mytab" class="table">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Class</th>
+    </tr>
+</thead>
+<tbody>
+       <tr id="repeatRow">
+           <td>
+               Sai
+           </td>
+           <td>
+               8
+           </td>
+           <td>
+               <span id="AddSpan">Add new</span>
+           </td>
+       </tr>     
+       
+    }
+</tbody>
+</table>

@@ -65,7 +65,7 @@ namespace SimpleSheets
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Admin}/{action=Index}/{id?}");
+                    pattern: "{controller=TimeSheet}/{action=Index}/{id?}");
             });
         }
     }
