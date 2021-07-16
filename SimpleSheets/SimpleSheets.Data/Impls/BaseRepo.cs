@@ -13,7 +13,7 @@ namespace SimpleSheets.Data.Impls
         protected readonly IDbConnectionFactory _dbConnectionFactory;
         protected readonly IConfiguration _config;
         protected readonly ILogger<BaseRepo> _logger;
-        protected readonly string _itrConnectionName = "ITRConnection";
+        protected readonly string _itrConnectionName = "TimeSheetsConnection";
         protected readonly IMemoryCache _memoryCache;
         public BaseRepo(IDbConnectionFactory dbConnectionFactory,
             IConfiguration config, ILogger<BaseRepo> logger, IMemoryCache memoryCache)
