@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimpleSheets.Data.Enums;
+using SimpleSheets.Data.Impls;
+using SimpleSheets.Data.Interface;
 
 namespace SimpleSheets
 {
@@ -23,6 +26,14 @@ namespace SimpleSheets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionDetails = new List<IConnectionDetail>();
+            var connectionName = "TimeSheetsConnection";
+            var connectionType = DbConnectionType.SqlServer;
+            var connectionString = Configuration["TimeSheetsConnectionString"].ToString();
+            connectionDetails.Add(new ConnectionDetail(connectionName,
+                connectionType, connectionString));
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>
+               (d => new DbConnectionFactory(connectionDetails));
             services.AddControllersWithViews();
         }
 
