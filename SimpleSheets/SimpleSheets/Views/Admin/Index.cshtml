@@ -3,21 +3,33 @@
     var display = ViewData["Display"];
 }
 
-<div>
-    <form enctype="multipart/form-data" action="/Admin/GetRoles" method="post" class="form">
-        <button type="submit" class="btn btn-success">View Roles</button>
-    </form>
-    <form enctype="multipart/form-data" action="/Admin/GetProjects" method="post" class="form">
-        <button type="submit" class="btn btn-success">View Projects</button>
-    </form>
-    <form enctype="multipart/form-data" action="/Admin/GetEmployee" method="post" class="form">
-        <button type="submit" class="btn btn-success">View Employess</button>
-    </form>
-    <form enctype="multipart/form-data" action="/Admin/GetTimeType" method="post" class="form">
-        <button type="submit" class="btn btn-success">View Timetypess</button>
-    </form>
-    <form enctype="multipart/form-data" action="/Admin/GetEmployeeProjectMap" method="post" class="form">
-        <button type="submit" class="btn btn-success">View employee project mapping</button>
-    </form>
-    
+<div style="justify-content: space-between; column-gap: 20px; display: flex">
+    <div id='f1' style="float:left">
+        <form enctype="multipart/form-data" action="/Admin/GetRoles" method="post" class="form">
+            <button type="submit" class="btn btn-success">View Roles</button>
+        </form>
+    </div>
+    <div id='f2' style="float:left">
+        <form enctype="multipart/form-data" action="/Admin/GetProjects" method="post" class="form">
+            <button type="submit" class="btn btn-success">View Projects</button>
+        </form>
+    </div>
+    <div id="f3" style="float:left">
+        <form enctype="multipart/form-data" action="/Admin/GetEmployee" method="post" class="form">
+            <button type="submit" class="btn btn-success">View Employess</button>
+        </form>
+    </div>
+    <div id="f4" style="float:left">
+        <form enctype="multipart/form-data" action="/Admin/GetTimeType" method="post" class="form">
+            <button type="submit" class="btn btn-success">View Timetypess</button>
+        </form>
+    </div>
+
+    <div id="f5" style="float:left">
+
+        <form enctype="multipart/form-data" action="/Admin/GetEmployeeProjectMap" method="post" class="form">
+            <button type="submit" class="btn btn-success">View employee project mapping</button>
+        </form>
+     </div>
+
 </div>
