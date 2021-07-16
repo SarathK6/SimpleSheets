@@ -22,6 +22,31 @@ namespace SimpleSheets.Services.Impls
             _logger = logger;
         }
 
+        public void CreateEmployee(Employee employee)
+        {
+            _adminRepo.CreateEmployee(employee);
+        }
+
+        public void CreateEmployeeProjectMap(EmployeeProjectMapCreate employee)
+        {
+            _adminRepo.CreateEmployeeProjectMap(employee);
+        }
+
+        public void CreateProjects(Projects projects)
+        {
+            _adminRepo.CreateProjects(projects);
+        }
+
+        public void CreateRoles(Roles roles)
+        {
+            _adminRepo.CreateRoles(roles);
+        }
+
+        public void CreateTimeType(TimeType timeType)
+        {
+            _adminRepo.CreateTimeType(timeType);
+        }
+
         public IEnumerable<Employee> GetEmployee()
         {
             return _adminRepo.GetEmployee();
