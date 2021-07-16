@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSheets", "SimpleSheets\SimpleSheets.csproj", "{E118712D-1761-410A-AB90-4AC3EC482EF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheets.Data", "SimpleSheets.Data\SimpleSheets.Data.csproj", "{4ECF618E-6ABD-442C-B5E7-7A92890B4144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSheets.Data", "SimpleSheets.Data\SimpleSheets.Data.csproj", "{4ECF618E-6ABD-442C-B5E7-7A92890B4144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheets.Services", "SimpleSheets.Services\SimpleSheets.Services.csproj", "{982E2C52-8D56-48FB-A0B4-AF0197D41574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSheets.Services", "SimpleSheets.Services\SimpleSheets.Services.csproj", "{982E2C52-8D56-48FB-A0B4-AF0197D41574}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TimesheetsDB", "TimesheetsDB\TimesheetsDB.sqlproj", "{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425C2FFC-C844-449E-B5F0-B3E13B6D80B7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
