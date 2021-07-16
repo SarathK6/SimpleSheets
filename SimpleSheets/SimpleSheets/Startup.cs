@@ -38,6 +38,8 @@ namespace SimpleSheets
                (d => new DbConnectionFactory(connectionDetails));
             services.AddSingleton<IAdminRepo, AdminRepo>(); 
             services.AddSingleton<IAdminService, AdminService>();
+            services.AddSingleton<ITimeSheetService, TimeSheetService>();
+            services.AddSingleton<ITimeSheetRepo, TimeSheetRepo>();
             services.AddControllersWithViews();
         }
 
