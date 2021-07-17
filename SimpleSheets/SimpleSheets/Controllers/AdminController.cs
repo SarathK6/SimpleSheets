@@ -58,7 +58,7 @@ namespace SimpleSheets.Controllers
             ViewData["Roles"] = roles;
             return View();
         }
-        
+
         public IActionResult CreateEmployee(Employee employee)
         {
             employee.Last_updated = DateTime.Now;
@@ -112,5 +112,38 @@ namespace SimpleSheets.Controllers
             _adminService.CreateEmployeeProjectMap(employeeProjectMapCreate);
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult DeleteRoleById(int id)
+        {
+            _adminService.DeleteRoleById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmployeeById(int id)
+        {
+
+            _adminService.DeleteEmployeeById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteProject(int id)
+        {
+            _adminService.DeleteProject(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmpProjMap(int id)
+        {
+            _adminService.DeleteEmpProjMap(id);
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult DeleteTimeType(int id)
+        {
+            _adminService.DeleteTimeType(id);
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

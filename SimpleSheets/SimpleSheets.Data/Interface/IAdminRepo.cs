@@ -18,5 +18,12 @@ namespace SimpleSheets.Data.Interface
         public void CreateTimeType(TimeType timeType);
         public void CreateEmployeeProjectMap(EmployeeProjectMapCreate employee);
 
+        public void DeleteRoleById(int id);
+
+        public void DeleteEmployeeById(int id);
+
+        public void DeleteProject(int id);
+        public void DeleteEmpProjMap(int id);
+        public void DeleteTimeType(int id);
     }
 }
