@@ -57,6 +57,7 @@ namespace SimpleSheets
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //Extra comment - can be removed
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
