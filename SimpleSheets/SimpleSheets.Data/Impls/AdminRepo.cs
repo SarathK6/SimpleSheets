@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SimpleSheets.Data.Impls
 {
-    public class AdminRepo : BaseRepo, IAdminRepo
+    public class AdminRepo: BaseRepo, IAdminRepo
     {
         public AdminRepo(IDbConnectionFactory dbConnectionFactory,
             IConfiguration config, ILogger<AdminRepo> logger, IMemoryCache memoryCache) :
@@ -20,83 +20,9 @@ namespace SimpleSheets.Data.Impls
 
         }
 
-        public void CreateEmployee(Employee employee)
-        {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
-            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
-            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
-            var commandTimeout = int.Parse(_config["CommandTimeout"]);
-            int attempts = 0;
-            try
-            {
-                attempts++;
-                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
-                {
-                    string query = "INSERT INTO Employee(FullName,UserName,RoleId,Createdon,Last_updated)"
-                        + "VALUES(@FullName, @UserName, @RoleId, @Createdon, @Last_updated)";
-                    conn.ExecuteScalar<Employee>(query, employee,
-                        commandTimeout: commandTimeout);
-                    var cacheOptions = new MemoryCacheEntryOptions()
-                    {
-                        Priority = CacheItemPriority.High,
-                        AbsoluteExpiration = DateTime.Now.AddDays(7)
-                    };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
-
-                }
-                
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                Task.Delay(timeSpanDelay);
-                throw ex;
-
-            }
-        }
-
-        public void CreateEmployeeProjectMap(EmployeeProjectMapCreate employee)
-        {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
-            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
-            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
-            var commandTimeout = int.Parse(_config["CommandTimeout"]);
-            int attempts = 0;
-            try
-            {
-                attempts++;
-                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
-                {
-                    string query = "INSERT INTO EmployeeProjectMap(empId,projectId)"
-                                    +"VALUES(@EmpId, @ProjectId)";
-                    conn.ExecuteScalar<EmployeeProjectMapCreate>(query, employee,
-                        commandTimeout: commandTimeout);
-                    var cacheOptions = new MemoryCacheEntryOptions()
-                    {
-                        Priority = CacheItemPriority.High,
-                        AbsoluteExpiration = DateTime.Now.AddDays(7)
-                    };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
-
-                }
-                
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                Task.Delay(timeSpanDelay);
-                throw ex;
-
-            }
-        }
-
         public void CreateProjects(Projects projects)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into CreateProjects Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -107,8 +33,8 @@ namespace SimpleSheets.Data.Impls
                 attempts++;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "INSERT INTO Projects(Title)"
-                        + "VALUES(@Title)";
+                    string query = "Insert into Projects(ProjectTitle,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)"
+                        + "VALUES(@ProjectTitle,@CreatedOn,@CreatedBy,@ModifiedOn,@ModifiedBy)";
                     conn.ExecuteScalar<Projects>(query, projects,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -116,12 +42,10 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    _logger.LogInformation("Exited CreateProjects Method");
 
                 }
-
             }
-
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
@@ -129,48 +53,11 @@ namespace SimpleSheets.Data.Impls
                 throw ex;
 
             }
+
         }
-
-        public void CreateRoles(Roles roles)
-        {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
-            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
-            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
-            var commandTimeout = int.Parse(_config["CommandTimeout"]);
-            int attempts = 0;
-            try
-            {
-                attempts++;
-                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
-                {
-                    string query = "INSERT INTO Role(Title,Createdon,Last_updated)"
-                        + "VALUES(@Title,@Createdon,@Last_updated)";
-                    conn.ExecuteScalar<Roles>(query, roles,
-                        commandTimeout: commandTimeout);
-                    var cacheOptions = new MemoryCacheEntryOptions()
-                    {
-                        Priority = CacheItemPriority.High,
-                        AbsoluteExpiration = DateTime.Now.AddDays(7)
-                    };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
-
-                }
-
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                Task.Delay(timeSpanDelay);
-                throw ex;
-
-            }
-        }
-
         public void CreateTimeType(TimeType timeType)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into CreateTimeType Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -181,8 +68,8 @@ namespace SimpleSheets.Data.Impls
                 attempts++;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "INSERT INTO TimeType(TimeType)"
-                        + "values(@TimeType)";
+                    string query = "INSERT INTO TimeType(TimeTypeTitle,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)"
+                        + "values(@TimeTypeTitle,@CreatedOn,@CreatedBy,@ModifiedOn,@ModifiedBy)";
                     conn.ExecuteScalar<Roles>(query, timeType,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -190,7 +77,7 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    _logger.LogInformation("Exited CreateTimeType Method");
 
                 }
 
@@ -207,7 +94,7 @@ namespace SimpleSheets.Data.Impls
 
         public IEnumerable<Employee> GetEmployee()
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into GetEmployee Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -219,7 +106,7 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<Employee> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "select Id,FullName,UserName,RoleId,CreatedOn,Last_updated from  Employee";
+                    string query = "select * from  Employee";
                     roles = conn.Query<Employee>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -230,6 +117,7 @@ namespace SimpleSheets.Data.Impls
                     _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
 
                 }
+                _logger.LogInformation("Exited GetEmployee Method");
                 return roles;
             }
 
@@ -237,80 +125,7 @@ namespace SimpleSheets.Data.Impls
             {
                 _logger.LogError(ex, ex.Message);
                 Task.Delay(timeSpanDelay);
-                throw ex;
-
-            }
-        }
-
-        public IEnumerable<EmployeeProjectMap> GetEmployeeProjectMap()
-        {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
-            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
-            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
-            var commandTimeout = int.Parse(_config["CommandTimeout"]);
-            int attempts = 0;
-            try
-            {
-                attempts++;
-                IEnumerable<EmployeeProjectMap> roles;
-                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
-                {
-                    string query = "select * from vw_EmployeeProjectMap";
-                    roles = conn.Query<EmployeeProjectMap>(query, null,
-                        commandTimeout: commandTimeout);
-                    var cacheOptions = new MemoryCacheEntryOptions()
-                    {
-                        Priority = CacheItemPriority.High,
-                        AbsoluteExpiration = DateTime.Now.AddDays(7)
-                    };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
-
-                }
-                return roles;
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                Task.Delay(timeSpanDelay);
-                throw ex;
-
-            }
-        }
-
-        public IEnumerable<Projects> GetProjects()
-        {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
-            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
-            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
-            var commandTimeout = int.Parse(_config["CommandTimeout"]);
-            int attempts = 0;
-            try
-            {
-                attempts++;
-                IEnumerable<Projects> roles;
-                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
-                {
-                    string query = "SELECT Id, Title From Projects";
-                    roles = conn.Query<Projects>(query, null,
-                        commandTimeout: commandTimeout);
-                    var cacheOptions = new MemoryCacheEntryOptions()
-                    {
-                        Priority = CacheItemPriority.High,
-                        AbsoluteExpiration = DateTime.Now.AddDays(7)
-                    };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
-
-                }
-                return roles;
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                Task.Delay(timeSpanDelay);
+                _logger.LogInformation("Error in  GetEmployee Method" + " " + ex);
                 throw ex;
 
             }
@@ -318,7 +133,7 @@ namespace SimpleSheets.Data.Impls
 
         public IEnumerable<Roles> GetRoles()
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into GetRoles Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -330,7 +145,7 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<Roles> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "SELECT Id, Title,CreatedOn,Last_updated From Role";
+                    string query = "SELECT * From Role";
                     roles = conn.Query<Roles>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -341,6 +156,7 @@ namespace SimpleSheets.Data.Impls
                     _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
 
                 }
+                _logger.LogInformation("Exited GetRoles Method");
                 return roles;
             }
 
@@ -348,6 +164,7 @@ namespace SimpleSheets.Data.Impls
             {
                 _logger.LogError(ex, ex.Message);
                 Task.Delay(timeSpanDelay);
+                _logger.LogInformation("Error in  GetRoles Method" + " " + ex);
                 throw ex;
 
             }
@@ -355,7 +172,7 @@ namespace SimpleSheets.Data.Impls
 
         public IEnumerable<TimeType> GetTimeType()
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into GetTimeType Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -375,7 +192,7 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    _logger.LogInformation("Exited GetTimeType Method");
 
                 }
                 return roles;
@@ -385,6 +202,7 @@ namespace SimpleSheets.Data.Impls
             {
                 _logger.LogError(ex, ex.Message);
                 Task.Delay(timeSpanDelay);
+                _logger.LogInformation("Error in  GetTimeType Method" + " " + ex);
                 throw ex;
 
             }

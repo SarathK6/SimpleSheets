@@ -1,11 +1,5 @@
 ﻿@model IEnumerable<SimpleSheets.Data.Models.TimeType>
 
-@{
-    ViewData["Title"] = "TimeType";
-}
-
-<h1>TimeType</h1>
-
 <p>
     <a asp-controller="Admin" asp-action="CreateTimeType">Create New</a>
 </p>
@@ -16,7 +10,19 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Timetype)
+                @Html.DisplayNameFor(model => model.TimetypeTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
             </th>
             <th></th>
         </tr>
@@ -28,7 +34,19 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Timetype)
+                @Html.DisplayFor(modelItem => item.TimetypeTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

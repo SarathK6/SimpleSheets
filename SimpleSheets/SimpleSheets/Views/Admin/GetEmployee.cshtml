@@ -1,19 +1,17 @@
 ﻿@model IEnumerable<SimpleSheets.Data.Models.Employee>
 
-@{
-    ViewData["Title"] = "Employees";
-}
 
-<h1>Employees</h1>
-
-<p>
-    <a asp-controller="Admin" asp-action="CreateEmployee">Create New Employee</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FullName)
@@ -22,13 +20,16 @@
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoleId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CreatedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Last_updated)
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
             </th>
             <th></th>
         </tr>
@@ -40,25 +41,30 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.EmpId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Last_updated)
+                @Html.DisplayFor(modelItem => item.CreatedBy)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedBy)
+            </td>
+            
         </tr>
 }
     </tbody>

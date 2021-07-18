@@ -27,14 +27,9 @@ namespace SimpleSheets.Services.Impls
             _timeSheetRepo.CreateTimeSheetRecord(timeSheet);
         }
 
-        public IEnumerable<EmployeeProjectMap> GetEmployeeProjectMapByUser(int userId)
+         public IEnumerable<TimeSheet> GetTimeSheetData(string EmpId)
         {
-            return _timeSheetRepo.GetEmployeeProjectMapByUser(userId);
-        }
-
-        public IEnumerable<TimeSheet> GetTImeSheetData()
-        {
-            return _timeSheetRepo.GetTImeSheetData();
+            return _timeSheetRepo.GetTimeSheetData(EmpId);
         }
     }
 }

@@ -7,8 +7,7 @@ namespace SimpleSheets.Data.Interface
 {
     public interface ITimeSheetRepo
     {
-        public IEnumerable<TimeSheet> GetTImeSheetData();
-        public IEnumerable<EmployeeProjectMap> GetEmployeeProjectMapByUser(int userId);
+        public IEnumerable<TimeSheet> GetTimeSheetData(string EmpId);
         public void CreateTimeSheetRecord(TimeSheet timeSheet);
     }
 }
