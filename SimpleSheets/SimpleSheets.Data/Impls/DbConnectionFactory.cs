@@ -14,19 +14,14 @@ namespace SimpleSheets.Data.Impls
         private readonly IList<IConnectionDetail> _connectionDetails;
         public DbConnectionFactory(IList<IConnectionDetail> connectionDetails)
         {
-            _connectionDetails = connectionDetails ?? throw
-                new ArgumentNullException(nameof(connectionDetails),
-                $"{nameof(connectionDetails)} cannot be null");
+            _connectionDetails = connectionDetails ?? throw new ArgumentNullException(nameof(connectionDetails), $"{nameof(connectionDetails)} cannot be null");
         }
         public IDbConnection GetConnection(string connectionName)
         {
-            var connectionDetail = _connectionDetails.FirstOrDefault(c =>
-            c.DbConnectionName.ToLower() == connectionName.ToLower());
+            var connectionDetail = _connectionDetails.FirstOrDefault(c => c.DbConnectionName.ToLower() == connectionName.ToLower());
             if (connectionDetail == null)
             {
-                throw
-                    new ArgumentNullException(nameof(connectionName),
-                    "invalid connection name");
+                throw new ArgumentNullException(nameof(connectionName),"invalid connection name");
             }
             return GetConnection(connectionDetail);
         }
@@ -41,9 +36,7 @@ namespace SimpleSheets.Data.Impls
                 //case DbConnectionType.MySql:
                 //    return new MySqlConnection(connectionDetail.ConnectionString);
                 default:
-                    throw
-                        new ArgumentException("invalid connection detail",
-                        nameof(connectionDetail));
+                    throw new ArgumentException("invalid connection detail", nameof(connectionDetail));
             }
         }
     }
