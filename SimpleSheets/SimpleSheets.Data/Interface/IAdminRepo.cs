@@ -7,16 +7,10 @@ namespace SimpleSheets.Data.Interface
 {
     public interface IAdminRepo
     {
-        public IEnumerable<Roles> GetRoles();
-        public IEnumerable<Projects> GetProjects();
         public IEnumerable<Employee> GetEmployee();
+        public IEnumerable<Roles> GetRoles();
         public IEnumerable<TimeType> GetTimeType();
-        public IEnumerable<EmployeeProjectMap> GetEmployeeProjectMap();
-        public void CreateRoles(Roles roles);
         public void CreateProjects(Projects projects);
-        public void CreateEmployee(Employee employee);
         public void CreateTimeType(TimeType timeType);
-        public void CreateEmployeeProjectMap(EmployeeProjectMapCreate employee);
-
     }
 }

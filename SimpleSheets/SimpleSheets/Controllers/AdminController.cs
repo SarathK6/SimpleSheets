@@ -4,66 +4,63 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSheets.Data.Models;
-using SimpleSheets.Models;
 using SimpleSheets.Services.Interfaces;
 
 namespace SimpleSheets.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IAdminService _adminService;
+        public IAdminService _adminService { get; }
+        public IGenericService _genericService { get; }
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IGenericService genericService)
         {
             _adminService = adminService;
+            _genericService = genericService;
+
         }
         public IActionResult Index()
         {
+            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            ViewData["Username"] = username;
             return View();
-        }
-        [HttpPost]
-        public IActionResult GetRoles()
-        {
-            var roles = _adminService.GetRoles();
-            return View(roles);
-        }
-        [HttpPost]
-        public IActionResult GetProjects()
-        {
-            var projects = _adminService.GetProjects();
-            return View(projects);
-        }
-        [HttpPost]
-        public IActionResult GetEmployee()
-        {
-            var employees = _adminService.GetEmployee();
-            return View(employees);
-        }
-        [HttpPost]
-        public IActionResult GetTimeType()
-        {
-            var timeType = _adminService.GetTimeType();
-            return View(timeType);
-        }
-        [HttpPost]
-        public IActionResult GetEmployeeProjectMap()
-        {
-            var employeeProjectMap = _adminService.GetEmployeeProjectMap();
-            return View(employeeProjectMap);
         }
         [HttpGet]
-        public IActionResult CreateEmployee()
+        public IActionResult GetEmployee()
         {
-            var roles = _adminService.GetRoles();
-            ViewData["Roles"] = roles;
+            var employee=_adminService.GetEmployee();
+            return View(employee);
+        }
+        [HttpGet]
+        public IActionResult GetProjects()
+        {
+            var projects= _genericService.GetProjects();
+            return View(projects);
+        }
+        [HttpGet]
+        public IActionResult GetRoles()
+        {
+            var roles=_adminService.GetRoles();
+            return View(roles);
+        }
+        [HttpGet]
+        public IActionResult GetTimeType()
+        {
+            var timetypes=_adminService.GetTimeType();
+            return View(timetypes);
+        }
+        [HttpGet]
+        public IActionResult CreateTimeType()
+        {
             return View();
         }
-        
-        public IActionResult CreateEmployee(Employee employee)
+        public IActionResult CreateTimeType(TimeType timeType)
         {
-            employee.Last_updated = DateTime.Now;
-            employee.CreatedOn = DateTime.Now;
-            _adminService.CreateEmployee(employee);
+            timeType.CreatedOn = DateTime.Now;
+            timeType.ModifiedOn = DateTime.Now;
+            timeType.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            timeType.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.CreateTimeType(timeType);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -73,43 +70,11 @@ namespace SimpleSheets.Controllers
         }
         public IActionResult CreateProjects(Projects projects)
         {
+            projects.CreatedOn = DateTime.Now;
+            projects.ModifiedOn = DateTime.Now;
+            projects.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            projects.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
             _adminService.CreateProjects(projects);
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult CreateRoles()
-        {
-            return View();
-        }
-        public IActionResult CreateRoles(Roles roles)
-        {
-            roles.CreatedOn = DateTime.Now;
-            roles.Last_updated = DateTime.Now;
-            _adminService.CreateRoles(roles);
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult CreateTimeType()
-        {
-            return View();
-        }
-        public IActionResult CreateTimeType(TimeType timeTypeCreated)
-        {
-            _adminService.CreateTimeType(timeTypeCreated);
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult CreateEmployeeProjectMap()
-        {
-            var employees = _adminService.GetEmployee();
-            var projects = _adminService.GetProjects();
-            ViewData["Employees"] = employees;
-            ViewData["Projects"] = projects;
-            return View();
-        }
-        public IActionResult CreateEmployeeProjectMap(EmployeeProjectMapCreate employeeProjectMapCreate)
-        {
-            _adminService.CreateEmployeeProjectMap(employeeProjectMapCreate);
             return RedirectToAction("Index");
         }
     }
