@@ -9,6 +9,6 @@ namespace SimpleSheets.Services.Interfaces
     {
         public IEnumerable<TimeType> GetTimeType();
         public IEnumerable<Projects> GetProjects();
-        public string GetEmployeeManagerId(string empId);
+        public Guid GetEmployeeManagerId(string empId);
     }
 }

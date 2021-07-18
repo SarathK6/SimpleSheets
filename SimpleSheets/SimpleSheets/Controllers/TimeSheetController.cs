@@ -53,13 +53,13 @@ namespace SimpleSheets.Controllers
         {
             var empId= User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
             var approverId= _genericService.GetEmployeeManagerId(empId);
-            timeSheet.EmpId = empId;
+            timeSheet.EmpId = new Guid(empId);
             timeSheet.CreatedOn = DateTime.Now;
             timeSheet.ModifiedOn = DateTime.Now;
             timeSheet.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
             timeSheet.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
             timeSheet.ApprovalStatus = false;
-            timeSheet.ApproverId = approverId == null ? empId : approverId.ToString();
+            timeSheet.ApproverId = approverId;
             _timeSheetService.CreateTimeSheetRecord(timeSheet);
             return RedirectToAction("Index");
         }

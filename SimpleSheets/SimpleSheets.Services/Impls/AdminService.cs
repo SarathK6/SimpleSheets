@@ -22,6 +22,21 @@ namespace SimpleSheets.Services.Impls
             _adminRepo = adminRepo;
         }
 
+        public void AddEmployee(Employee employee)
+        {
+            _adminRepo.AddEmployee(employee);
+        }
+
+        public void AddEmployeeRole(EmployeeRoleMap employeeRoleMap)
+        {
+            _adminRepo.AddEmployeeRole(employeeRoleMap);
+        }
+
+        public void AddRole(Roles roles)
+        {
+            _adminRepo.AddRole(roles);
+        }
+
         public void CreateProjects(Projects projects)
         {
             _adminRepo.CreateProjects(projects);
@@ -35,6 +50,11 @@ namespace SimpleSheets.Services.Impls
         public IEnumerable<Employee> GetEmployee()
         {
             return _adminRepo.GetEmployee();
+        }
+
+        public IEnumerable<EmployeeRoleMap> GetEmployeeProjectMap()
+        {
+            return _adminRepo.GetEmployeeProjectMap();
         }
 
         public IEnumerable<Roles> GetRoles()

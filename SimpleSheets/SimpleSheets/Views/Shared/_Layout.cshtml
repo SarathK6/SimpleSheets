@@ -10,24 +10,24 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SimpleSheets</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TimeSheet" asp-action="Index">Time Sheet</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="TimeSheet" asp-action="Index">Time Sheet</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                         </li>
                     </ul>
                 </div>
                 <div>
-                    <a class="nav-link text-dark" asp-area="">Hey, <b>@ViewData["Username"]</b></a>
+                    <a class="nav-link text-white" asp-area="">Hey, <b>@ViewData["Username"]</b></a>
                     @using (Html.BeginForm("Logout", "TimeSheet"))
                     {
-                        <input asp-area="MicrosoftIdentity" class="logout btn btn-light" type="button" value="Logout" />
+                        <input asp-area="MicrosoftIdentity" class="logout btn btn text-white" type="button" value="Logout" />
                     }
                 </div>
             </div>

@@ -1,8 +1,8 @@
-﻿@model IEnumerable<SimpleSheets.Data.Models.Roles>
+﻿@model IEnumerable<SimpleSheets.Data.Models.EmployeeRoleMap>
 
-    <p>
-        <a asp-controller="Admin" asp-action="AddRoles">Create New</a>
-    </p>
+<p>
+    <a asp-action="AddEmployeeRole">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -10,7 +10,10 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoleTitle)
+                @Html.DisplayNameFor(model => model.EmpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedOn)
@@ -34,7 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleTitle)
+                @Html.DisplayFor(modelItem => item.EmpId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
@@ -48,7 +54,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
-           
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
         </tr>
 }
     </tbody>

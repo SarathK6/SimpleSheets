@@ -1,8 +1,21 @@
-﻿<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">View My Timesheet</h5>
-        <p class="card-text">View your timesheet data all at one place!</p>
-        <a asp-controller="TimeSheet" asp-action="GetTimeSheets">View</a>
+﻿
+<div class="card-deck" style="margin-left:60px">
+
+    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+
+        <div class="card-header">View My Timesheets</div>
+
+        <div class="card-body">
+
+            <h5 class="card-title">Get Timesheet details</h5>
+
+            <p class="card-text">You can view,edit or delete your timesheet details here.</p>
+
+            <a asp-controller="TimeSheet" asp-action="GetTimeSheets" class="btn btn-success">Go</a>
+
+        </div>
+
     </div>
+
+
 </div>

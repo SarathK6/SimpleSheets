@@ -94,7 +94,7 @@ namespace SimpleSheets.Data.Impls
 
             }
         }
-        public string GetEmployeeManagerId(string empId)
+        public Guid GetEmployeeManagerId(string empId)
         {
             _logger.LogInformation("Entered into GetTimeType Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
@@ -105,12 +105,12 @@ namespace SimpleSheets.Data.Impls
             try
             {
                 attempts++;
-                string empManagerId;
+                Guid empManagerId;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
                     string query = "SELECT ManagerId FROM  Employee where EmpId='"+ empId+"'";
                     empManagerId = conn.QueryFirstOrDefault<Guid>(query, null,
-                        commandTimeout: commandTimeout).ToString();
+                        commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
                         Priority = CacheItemPriority.High,

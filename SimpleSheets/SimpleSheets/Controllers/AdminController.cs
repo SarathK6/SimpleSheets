@@ -79,5 +79,51 @@ namespace SimpleSheets.Controllers
             _adminService.CreateProjects(projects);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            var manager = _adminService.GetEmployee();
+            ViewData["manager"] = manager;
+
+            return View();
+        }
+        public IActionResult AddEmployee(Employee employee)
+        {
+            employee.CreatedOn = DateTime.Now;
+            employee.ModifiedOn = DateTime.Now;
+            employee.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            employee.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.AddEmployee(employee);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult AddRoles()
+        {
+            return View();
+        }
+        public IActionResult AddRoles(Roles roles)
+        {
+            roles.CreatedOn = DateTime.Now;
+            roles.ModifiedOn = DateTime.Now;
+            roles.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            roles.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.AddRole(roles);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult GetEmployeeProjectMap()
+        {
+            var employee = _adminService.GetEmployeeProjectMap();
+            return View(employee);
+        }
+        [HttpGet]
+        public IActionResult AddEmployeeRole()
+        {
+            var roles = _adminService.GetRoles();
+            var employees =_adminService.GetEmployee();
+            ViewBag["roles"] = roles;
+            ViewBag["employees"] = employees;
+            return View();
+        }
     }
 }

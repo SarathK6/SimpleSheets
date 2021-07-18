@@ -7,7 +7,7 @@ namespace SimpleSheets.Services.Interfaces
 {
     public interface ITimeSheetService
     {
-        public IEnumerable<TimeSheet> GetTimeSheetData(string EmpId);
+        public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId);
         public void CreateTimeSheetRecord(TimeSheet timeSheet);
     }
 }
