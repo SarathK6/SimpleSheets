@@ -27,7 +27,7 @@ namespace SimpleSheets.Services.Impls
             _timeSheetRepo.CreateTimeSheetRecord(timeSheet);
         }
 
-         public IEnumerable<TimeSheet> GetTimeSheetData(string EmpId)
+         public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId)
         {
             return _timeSheetRepo.GetTimeSheetData(EmpId);
         }

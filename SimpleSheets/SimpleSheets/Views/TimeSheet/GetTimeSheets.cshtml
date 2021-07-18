@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SimpleSheets.Data.Models.TimeSheet>
+﻿@model IEnumerable<SimpleSheets.Data.Models.TimeSheetsView>
 
 <p>
     <a asp-controller="TimeSheet" asp-action="CreateTimeSheet">Create New</a>
@@ -7,43 +7,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.EmployeeName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmpId)
+                @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NoOfHours)
+                @Html.DisplayNameFor(model => model.TimeType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeTypeId)
+                @Html.DisplayNameFor(model => model.ApproverName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProjectId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApproverId)
+                @Html.DisplayNameFor(model => model.Hours)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApprovalStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovedBy)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApprovedOn)
@@ -55,40 +34,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.EmployeeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpId)
+                @Html.DisplayFor(modelItem => item.Project)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NoOfHours)
+                @Html.DisplayFor(modelItem => item.TimeType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TimeTypeId)
+                @Html.DisplayFor(modelItem => item.ApproverName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApproverId)
+                @Html.DisplayFor(modelItem => item.Hours)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApprovalStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedBy)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApprovedOn)

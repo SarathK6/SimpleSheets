@@ -31,7 +31,7 @@ namespace SimpleSheets.Services.Impls
         {
             return _genericRepo.GetTimeType();
         }
-        public string GetEmployeeManagerId(string empId)
+        public Guid GetEmployeeManagerId(string empId)
         {
             return _genericRepo.GetEmployeeManagerId(empId);
         }

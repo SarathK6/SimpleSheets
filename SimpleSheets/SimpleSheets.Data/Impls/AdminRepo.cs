@@ -20,6 +20,111 @@ namespace SimpleSheets.Data.Impls
 
         }
 
+        public void AddEmployee(Employee employee)
+        {
+            _logger.LogInformation("Entered into AddEmployee Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            int attempts = 0;
+            try
+            {
+                attempts++;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "Insert into Employee(EmpId  ,ManagerId  ,FullName  ,UserName , CreatedOn,CreatedBy , ModifiedOn,ModifiedBy)"
+                        + "VALUES(@EmpId  ,@ManagerId  ,@FullName  ,@UserName , @CreatedOn,@CreatedBy , @ModifiedOn,@ModifiedBy)";
+                    conn.ExecuteScalar<Projects>(query, employee,
+                        commandTimeout: commandTimeout);
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited AddEmployee Method");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                Task.Delay(timeSpanDelay);
+                throw ex;
+
+            }
+        }
+
+        public void AddEmployeeRole(EmployeeRoleMap employeeRoleMap)
+        {
+            _logger.LogInformation("Entered into AddEmployeeRole Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            int attempts = 0;
+            try
+            {
+                attempts++;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "Insert into EmployeeRoleMap(EmpId,Role,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)"
+                        + "VALUES(@EmpId,@Role,@CreatedOn,@CreatedBy,@ModifiedOn,@ModifiedBy)";
+                    conn.ExecuteScalar<Projects>(query, employeeRoleMap,
+                        commandTimeout: commandTimeout);
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited AddEmployeeRole Method");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                Task.Delay(timeSpanDelay);
+                throw ex;
+
+            }
+        }
+
+        public void AddRole(Roles roles)
+        {
+            _logger.LogInformation("Entered into AddRole Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            int attempts = 0;
+            try
+            {
+                attempts++;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "Insert into Employee(RoleTitle , CreatedOn,CreatedBy , ModifiedOn,ModifiedBy)"
+                        + "VALUES(@RoleTitle , @CreatedOn,@CreatedBy , @ModifiedOn,@ModifiedBy)";
+                    conn.ExecuteScalar<Projects>(query, roles,
+                        commandTimeout: commandTimeout);
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited AddRole Method");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                Task.Delay(timeSpanDelay);
+                throw ex;
+
+            }
+        }
+
         public void CreateProjects(Projects projects)
         {
             _logger.LogInformation("Entered into CreateProjects Method");
@@ -115,6 +220,45 @@ namespace SimpleSheets.Data.Impls
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
                     _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+
+                }
+                _logger.LogInformation("Exited GetEmployee Method");
+                return roles;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                Task.Delay(timeSpanDelay);
+                _logger.LogInformation("Error in  GetEmployee Method" + " " + ex);
+                throw ex;
+
+            }
+        }
+
+        public IEnumerable<EmployeeRoleMap> GetEmployeeProjectMap()
+        {
+            _logger.LogInformation("Entered into GetEmployeeProjectMap Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            int attempts = 0;
+            try
+            {
+                attempts++;
+                IEnumerable<EmployeeRoleMap> roles;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "select * from  EmployeeRoleMap";
+                    roles = conn.Query<EmployeeRoleMap>(query, null,
+                        commandTimeout: commandTimeout);
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited GetEmployeeProjectMap Method");
 
                 }
                 _logger.LogInformation("Exited GetEmployee Method");

@@ -57,7 +57,7 @@ namespace SimpleSheets.Data.Impls
             }
         }
 
-        public IEnumerable<TimeSheet> GetTimeSheetData(string EmpId)
+        public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId)
         {
             _logger.LogInformation("Entered into GetTImeSheetData Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
@@ -68,11 +68,11 @@ namespace SimpleSheets.Data.Impls
             try
             {
                 attempts++;
-                IEnumerable<TimeSheet> roles;
+                IEnumerable<TimeSheetsView> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "SELECT * FROM TimeSheet where EmpId='"+ EmpId+"'";
-                    roles = conn.Query<TimeSheet>(query, null,
+                    string query = "select EmployeeName,Project,TimeType,ApproverName,Hours,ApprovalStatus,ApprovedOn from VW_Timesheet where EmployeeId='" + EmpId+"'";
+                    roles = conn.Query<TimeSheetsView>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {

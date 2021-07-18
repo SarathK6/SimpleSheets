@@ -7,8 +7,8 @@ namespace SimpleSheets.Data.Models
     public class Employee
     {
         public int Id { get; set; }
-        public string EmpId { get; set; }
-        public string ManagerId { get; set; }
+        public Guid EmpId { get; set; }
+        public Guid ManagerId { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
         public DateTime CreatedOn { get; set; }

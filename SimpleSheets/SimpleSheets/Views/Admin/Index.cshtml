@@ -1,4 +1,94 @@
-﻿<a asp-controller="Admin" asp-action="GetEmployee">View Employee</a>
+﻿@*<a asp-controller="Admin" asp-action="GetEmployee">View Employee</a>
 <a asp-controller="Admin" asp-action="GetProjects">View Project</a>
 <a asp-controller="Admin" asp-action="GetRoles">View Roles</a>
-<a asp-controller="Admin" asp-action="GetTimeType">View Timetypes</a>
+<a asp-controller="Admin" asp-action="GetTimeType">View Timetypes</a>*@
+
+    <div class="card-deck" style="margin-left:60px">
+
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+
+            <div class="card-header">View Employees</div>
+
+            <div class="card-body">
+
+                <h5 class="card-title">Get Employee details</h5>
+
+                <p class="card-text">Admin can view,edit or delete employee details</p>
+
+                <a asp-controller="Admin" asp-action="GetEmployee" class="btn btn-success">Go</a>
+
+            </div>
+
+        </div>
+
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+
+            <div class="card-header">View Time Types</div>
+
+            <div class="card-body">
+
+                <h5 class="card-title">Get Time sheet acttivity types</h5>
+
+                <p class="card-text">Admin can edit,delete or view Time sheet activity names</p>
+
+                <a asp-controller="Admin" asp-action="GetTimeType" class="btn btn-danger">Go</a>
+
+            </div>
+
+        </div>
+
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+
+            <div class="card-header">View Employee Project Mappings</div>
+
+            <div class="card-body">
+
+                <h5 class="card-title">Get Employee Project allocation details</h5>
+
+                <p class="card-text">Admin can view,Edit, delete project mappings</p>
+
+                <a asp-controller="Admin" asp-action="GetEmployeeProjectMap" class="btn btn-danger">Go</a>
+
+            </div>
+
+        </div>
+        <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+
+            <div class="card-header">View Projects</div>
+
+            <div class="card-body">
+
+                <h5 class="card-title">Get Registered Project details</h5>
+
+                <p class="card-text">Admin can view,Edit and Delete Projects</p>
+
+                <a asp-controller="Admin" asp-action="GetProjects" class="btn btn-success">Go</a>
+
+            </div>
+
+        </div>
+
+        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+
+            <div class="card-header">View Roles</div>
+
+            <div class="card-body">
+
+                <h5 class="card-title">Get Roles in Organization</h5>
+
+                <p class="card-text">Admin can view and create,delete Roles</p>
+
+                <a asp-controller="Admin" asp-action="GetRoles" class="btn btn-danger">Go</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
