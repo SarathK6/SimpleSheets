@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.Hours)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApprovalStatus)
+                @Html.DisplayNameFor(model => model.ApprovedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApprovedOn)
+                @Html.DisplayNameFor(model => model.ApprovalStatus)
             </th>
             <th></th>
         </tr>
@@ -49,22 +49,34 @@
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
             <td>
-                @if(item.ApprovalStatus)
+                @Html.DisplayFor(modelItem => item.ApprovedOn)
+            </td>
+            <td style="font-weight:bold">
+                @if (item.ApprovalViewStatus)
                 {
-                  @Html.Label("Approved")
+                    @if (item.ApprovalStatus)
+                    {
+                        <span style="color:#28a745">@Html.Label("Approved")</span>
+                    }
+                    else
+                    {
+                        <span style="color:#dc3545">@Html.Label("Rejected")</span>
+                    }
                 }
                 else
                 {
-                    @Html.Label("Pending")
+                    <span style="color:#8c5949">@Html.Label("Pending")</span>
                 }
+
+
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApprovedOn)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @if (!item.ApprovalViewStatus)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) 
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                }
             </td>
         </tr>
 }
