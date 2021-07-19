@@ -80,9 +80,9 @@ namespace SimpleSheets.Services.Impls
         {
             _adminRepo.DeleteProject(id);
         }
-        public void DeleteEmpProjMap(string id)
+        public void DeleteEmpRoleMap(string id)
         {
-            _adminRepo.DeleteEmpProjMap(id);
+            _adminRepo.DeleteEmpRoleMap(id);
         }
 
         public void DeleteTimeType(int id)

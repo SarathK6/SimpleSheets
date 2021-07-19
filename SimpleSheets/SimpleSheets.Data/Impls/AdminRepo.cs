@@ -219,7 +219,7 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    
 
                 }
                 _logger.LogInformation("Exited GetEmployee Method");
@@ -269,7 +269,7 @@ namespace SimpleSheets.Data.Impls
             {
                 _logger.LogError(ex, ex.Message);
                 Task.Delay(timeSpanDelay);
-                _logger.LogInformation("Error in  GetEmployee Method" + " " + ex);
+                _logger.LogInformation("Error in  GetEmployeeProjectMap Method" + " " + ex);
                 throw ex;
 
             }
@@ -297,7 +297,7 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    
 
                 }
                 _logger.LogInformation("Exited GetRoles Method");
@@ -354,7 +354,7 @@ namespace SimpleSheets.Data.Impls
 
         public void DeleteRoleById(int id)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteRoleById Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -371,7 +371,7 @@ namespace SimpleSheets.Data.Impls
                         Priority = CacheItemPriority.High,
                         AbsoluteExpiration = DateTime.Now.AddDays(7)
                     };
-                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                    _logger.LogInformation("Exited DeleteRoleById Method");
 
 
                 }
@@ -385,7 +385,7 @@ namespace SimpleSheets.Data.Impls
         public void DeleteEmployeeById(string id)
         {
             int roles;
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteEmployeeById Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -405,7 +405,7 @@ namespace SimpleSheets.Data.Impls
                     Priority = CacheItemPriority.High,
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited DeleteEmployeeById Method");
             }
             catch (Exception ex)
             {
@@ -414,7 +414,7 @@ namespace SimpleSheets.Data.Impls
         }
         private void DeleteEmployeeProjectMapEmployee(string id)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteEmployeeProjectMapEmployee Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -435,15 +435,17 @@ namespace SimpleSheets.Data.Impls
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
 
             }
 
         }
         public void DeleteProject(int projid)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteProject Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -463,17 +465,18 @@ namespace SimpleSheets.Data.Impls
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
 
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited DeleteProject Method");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
         }
 
         public void DeleteEmployeeProjectMapPrjoect(int projid)
         {
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteEmployeeProjectMapPrjoect Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -492,19 +495,20 @@ namespace SimpleSheets.Data.Impls
                     Priority = CacheItemPriority.High,
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited DeleteEmployeeProjectMapPrjoect Method");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
 
         }
 
-        public void DeleteEmpProjMap(string id)
+        public void DeleteEmpRoleMap(string id)
         {
             int roles;
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteEmpRoleMap Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -516,7 +520,7 @@ namespace SimpleSheets.Data.Impls
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
 
-                    string query = "Delete from EmployeeRoleMap where EmpId=@Id";
+                    string query = "Delete from EmployeeRoleMap where Id=@Id";
                     roles = conn.Execute(query, new { Id = id });
 
                 }
@@ -525,11 +529,12 @@ namespace SimpleSheets.Data.Impls
                     Priority = CacheItemPriority.High,
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited DeleteEmpRoleMap Method");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
 
         }
@@ -537,7 +542,7 @@ namespace SimpleSheets.Data.Impls
         public void DeleteTimeType(int id)
         {
             int roles;
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteTimeType Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -558,12 +563,12 @@ namespace SimpleSheets.Data.Impls
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
 
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited DeleteTimeType Method");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
-
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
 
         }
@@ -571,7 +576,7 @@ namespace SimpleSheets.Data.Impls
         private void DeleteTimeSheetTimetypes(int id)
         {
             int roles;
-            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            _logger.LogInformation("Entered into DeleteTimeSheetTimetypes Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
             var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
             var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
@@ -591,10 +596,12 @@ namespace SimpleSheets.Data.Impls
                     Priority = CacheItemPriority.High,
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
+                _logger.LogInformation("Exited into DeleteTimeSheetTimetypes Method");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
 
 

@@ -9,6 +9,6 @@ namespace SimpleSheets.Services.Interfaces
     {
         public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId);
         public void CreateTimeSheetRecord(TimeSheet timeSheet);
-        public Employee GetmyDetailsfromDb(string empid);
+      
     }
 }

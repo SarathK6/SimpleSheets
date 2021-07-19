@@ -32,9 +32,6 @@ namespace SimpleSheets.Services.Impls
             return _timeSheetRepo.GetTimeSheetData(EmpId);
         }
 
-        public Employee GetmyDetailsfromDb(string id)
-        {
-            return _timeSheetRepo.GetmyDetailsfromDb(id);
-        }
+        
     }
 }

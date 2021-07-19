@@ -154,9 +154,9 @@ namespace SimpleSheets.Controllers
             _adminService.DeleteProject(id);
             return RedirectToAction("Index");
         }
-        public IActionResult DeleteEmpProjMap(string id)
+        public IActionResult DeleteEmpRoleMap(string id)
         {
-            _adminService.DeleteEmpProjMap(id);
+            _adminService.DeleteEmpRoleMap(id);
             return RedirectToAction("Index");
 
         }

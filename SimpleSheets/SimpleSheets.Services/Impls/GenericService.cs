@@ -35,6 +35,10 @@ namespace SimpleSheets.Services.Impls
         {
             return _genericRepo.GetEmployeeManagerId(empId);
         }
+        public Employee GetmyDetailsfromDb(string id)
+        {
+            return _genericRepo.GetmyDetailsfromDb(id);
+        }
 
     }
 }

@@ -24,7 +24,7 @@ namespace SimpleSheets.Controllers
         public IActionResult GetmyDetails()
         {
             var oid= User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var employee = _timeSheetService.GetmyDetailsfromDb(oid);
+            var employee = _genericService.GetmyDetailsfromDb(oid);
             return View(employee);
         }
         public IActionResult Index()

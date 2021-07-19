@@ -22,7 +22,7 @@ namespace SimpleSheets.Services.Interfaces
 
         public void DeleteProject(int id);
 
-        public void DeleteEmpProjMap(string id);
+        public void DeleteEmpRoleMap(string id);
 
         public void DeleteTimeType(int id);
     }
