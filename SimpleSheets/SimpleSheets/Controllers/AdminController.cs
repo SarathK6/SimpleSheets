@@ -167,6 +167,72 @@ namespace SimpleSheets.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult EditRoleById(int id)
+        {
+            var model=_adminService.GetRolesbyId(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditRoleById(Roles roles)
+        {
+            roles.ModifiedOn = DateTime.Now;
+            roles.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateRoleById(roles);
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProjectById(int id)
+        {
+            var model = _adminService.GetProjectById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult UpdateProjectById(Projects projects)
+        {
+            projects.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            projects.ModifiedOn = DateTime.Now;
+            _adminService.UpdateProjectById(projects);            
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateEmployeeById(int id)
+
+        {
+
+            var model = _adminService.GetEmployeeById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEmployeeById(Employee employee)
+        {
+
+            employee.ModifiedOn = DateTime.Now;
+            employee.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateEmployeeById(employee);
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateTimeTypeById(int id)
+        {
+
+            var model = _adminService.GetTimeTypeById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult UpdateTimeTypeById(TimeType timeType)
+        {
+
+            timeType.ModifiedOn = DateTime.Now;
+            timeType.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateTimeTypeById(timeType);
+            return RedirectToAction("Index");
+        }
+
 
 
     }

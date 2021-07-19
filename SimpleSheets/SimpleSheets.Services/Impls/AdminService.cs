@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SimpleSheets.Services.Impls
 {
-    public class AdminService: IAdminService
+    public class AdminService : IAdminService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<AdminService> _logger;
@@ -89,6 +89,43 @@ namespace SimpleSheets.Services.Impls
         {
             _adminRepo.DeleteTimeType(id);
         }
+
+        public Roles GetRolesbyId(int id)
+        {
+            return  _adminRepo.GetRolesbyId(id);
+        }
+
+        public void UpdateRoleById(Roles roles)
+        {
+            _adminRepo.UpdateRoleById(roles);
         
+        }
+        public Projects GetProjectById(int id)
+        {
+            return _adminRepo.GetProjectById(id);
+        }
+
+        public void UpdateProjectById(Projects projects)
+        {
+            _adminRepo.UpdateProjectById(projects);
+        }
+
+        public Employee GetEmployeeById(int id)
+        {
+            return _adminRepo.GetEmployeeById(id);
+        }
+        public void UpdateEmployeeById(Employee employee)
+        {
+            _adminRepo.UpdateEmployeeById(employee);
+        }
+        public TimeType GetTimeTypeById(int id)
+        {
+            return _adminRepo.GetTimeTypeById(id);
+        }
+        public void UpdateTimeTypeById(TimeType timeType)
+        {
+
+            _adminRepo.UpdateTimeTypeById(timeType);
+        }
     }
 }

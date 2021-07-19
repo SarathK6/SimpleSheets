@@ -155,7 +155,7 @@ namespace SimpleSheets.Data.Impls
                     Priority = CacheItemPriority.High,
                     AbsoluteExpiration = DateTime.Now.AddDays(7)
                 };
-                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                _logger.LogInformation("Exited GetmyDetailsfromDb Method");
                 return roles;
             }
             catch (Exception ex)

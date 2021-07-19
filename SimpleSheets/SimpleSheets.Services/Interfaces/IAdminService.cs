@@ -25,5 +25,19 @@ namespace SimpleSheets.Services.Interfaces
         public void DeleteEmpRoleMap(string id);
 
         public void DeleteTimeType(int id);
+
+        public Roles GetRolesbyId(int id);
+
+        public void UpdateRoleById(Roles roles);
+
+        public Projects GetProjectById(int id);
+        public void UpdateProjectById(Projects projects);
+
+        public Employee GetEmployeeById(int id);
+
+        public void UpdateEmployeeById(Employee employee);
+
+        public TimeType GetTimeTypeById(int id);
+        public void UpdateTimeTypeById(TimeType time);
     }
 }
