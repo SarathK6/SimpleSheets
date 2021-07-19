@@ -93,5 +93,43 @@ namespace SimpleSheets.Data.Impls
 
             }
         }
+
+        public Employee GetmyDetailsfromDb(string id)
+        {
+         
+            
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                Employee roles;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from Employee where empId=@Id";
+                    roles = conn.QuerySingleOrDefault<Employee>(query,new { Id = id },
+                        commandTimeout: commandTimeout);
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+                return roles;   
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
+            }
+            
+            
+
+        }
     }
 }

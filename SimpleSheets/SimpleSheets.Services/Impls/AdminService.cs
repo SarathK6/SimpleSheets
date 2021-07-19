@@ -66,5 +66,29 @@ namespace SimpleSheets.Services.Impls
         {
             return _adminRepo.GetTimeType();
         }
+
+        public void DeleteRoleById(int id)
+        {
+            _adminRepo.DeleteRoleById(id);
+        }
+        public void DeleteEmployeeById(string id)
+        {
+            _adminRepo.DeleteEmployeeById(id);
+
+        }
+        public void DeleteProject(int id)
+        {
+            _adminRepo.DeleteProject(id);
+        }
+        public void DeleteEmpProjMap(string id)
+        {
+            _adminRepo.DeleteEmpProjMap(id);
+        }
+
+        public void DeleteTimeType(int id)
+        {
+            _adminRepo.DeleteTimeType(id);
+        }
+        
     }
 }

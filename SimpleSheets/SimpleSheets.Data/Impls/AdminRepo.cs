@@ -103,7 +103,7 @@ namespace SimpleSheets.Data.Impls
                 attempts++;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "Insert into Employee(RoleTitle , CreatedOn,CreatedBy , ModifiedOn,ModifiedBy)"
+                    string query = "Insert into Role(RoleTitle , CreatedOn,CreatedBy , ModifiedOn,ModifiedBy)"
                         + "VALUES(@RoleTitle , @CreatedOn,@CreatedBy , @ModifiedOn,@ModifiedBy)";
                     conn.ExecuteScalar<Projects>(query, roles,
                         commandTimeout: commandTimeout);
@@ -351,5 +351,254 @@ namespace SimpleSheets.Data.Impls
 
             }
         }
+
+        public void DeleteRoleById(int id)
+        {
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "Delete from Role where Id=@Id";
+                    var roles = conn.ExecuteAsync(query, new { Id = id });
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
+
+        public void DeleteEmployeeById(string id)
+        {
+            int roles;
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            DeleteEmployeeProjectMapEmployee(id);// delete employee proect map table record first
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "Delete from Employee where EmpId=@Id";
+                    roles = conn.Execute(query, new { Id = id });
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+        }
+        private void DeleteEmployeeProjectMapEmployee(string id)
+        {
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+
+            try
+            {
+
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query1 = "Delete from EmployeeProjectMap where empId=@Id";
+                    var roles1 = conn.Execute(query1, new { Id = id });
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+        public void DeleteProject(int projid)
+        {
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            DeleteEmployeeProjectMapPrjoect(projid);//need to delete proect mapping record first
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query1 = "Delete from Projects where Id=@Id";
+                    var roles1 = conn.Execute(query1, new { Id = projid });
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void DeleteEmployeeProjectMapPrjoect(int projid)
+        {
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query1 = "Delete from EmployeeRoleMap where Id=@Id";
+                    var roles1 = conn.Execute(query1, new { Id = projid });
+                    Console.WriteLine(roles1);
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        public void DeleteEmpProjMap(string id)
+        {
+            int roles;
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            /*eleteEmployeeProjectMapEmployee(id);// delete empl*/
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "Delete from EmployeeRoleMap where EmpId=@Id";
+                    roles = conn.Execute(query, new { Id = id });
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+            }
+            catch (Exception e)
+            {
+
+            }
+
+        }
+
+        public void DeleteTimeType(int id)
+        {
+            int roles;
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            DeleteTimeSheetTimetypes(id);// delete employee proect map table record first
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "Delete from TimeType where Id=@Id";
+                    roles = conn.Execute(query, new { Id = id });
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+
+                _logger.LogInformation("Exited GetAllKMLFilesAsync Method");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+
+            }
+
+        }
+
+        private void DeleteTimeSheetTimetypes(int id)
+        {
+            int roles;
+            _logger.LogInformation("Entered into GetAllKMLFilesAsync Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "Delete from TimeSheet where TimeTypeID=@Id";
+                    roles = conn.Execute(query, new { Id = id });
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+        }
     }
 }
+

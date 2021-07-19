@@ -101,6 +101,7 @@ namespace SimpleSheets.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult AddRoles(Roles roles)
         {
             roles.CreatedOn = DateTime.Now;
@@ -121,9 +122,52 @@ namespace SimpleSheets.Controllers
         {
             var roles = _adminService.GetRoles();
             var employees =_adminService.GetEmployee();
-            ViewBag["roles"] = roles;
-            ViewBag["employees"] = employees;
+            ViewData["roles"] = roles;
+            ViewData["employees"] = employees;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult AddEmployeeRole(EmployeeRoleMap emp)
+        {
+            emp.CreatedOn = DateTime.Now;
+            emp.ModifiedOn = DateTime.Now;
+            emp.CreatedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            emp.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.AddEmployeeRole(emp);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteRoleById(int id)
+        {
+            _adminService.DeleteRoleById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmployeeById(string id)
+        {
+
+            _adminService.DeleteEmployeeById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteProject(int id)
+        {
+            _adminService.DeleteProject(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmpProjMap(string id)
+        {
+            _adminService.DeleteEmpProjMap(id);
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult DeleteTimeType(int id)
+        {
+            _adminService.DeleteTimeType(id);
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }
