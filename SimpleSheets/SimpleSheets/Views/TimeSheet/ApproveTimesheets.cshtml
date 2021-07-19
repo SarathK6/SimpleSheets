@@ -48,7 +48,7 @@
             
             
             <td>
-                @Html.ActionLink("Approve", "UpdateStatus", new {  timesheetId=item.TimeSheetRecordId,status=true  }) 
+                @Html.ActionLink("Approve", "UpdateStatus", new {  timesheetId=item.TimeSheetRecordId,status=true  }, new { @class = "btn btn-primary" }) 
                 @Html.ActionLink("Reject", "UpdateStatus", new { timesheetId=item.TimeSheetRecordId,status=false }) 
                 
             </td>

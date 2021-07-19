@@ -67,11 +67,13 @@ namespace SimpleSheets.Controllers
             timeSheet.ApprovalStatus = empId.ToUpper().ToString()== approverId.ToString().ToUpper()?true:false;
             timeSheet.ApprovalViewStatus = empId.ToUpper().ToString() == approverId.ToString().ToUpper() ? true : false;
             timeSheet.ApproverId = approverId;
+            timeSheet.ApprovedOn = new DateTime(1753, 1, 1);
             if (empId.ToUpper().ToString() == approverId.ToString().ToUpper())
             {
                 timeSheet.ApprovedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value; ;
                 timeSheet.ApprovedOn = DateTime.Now;
             }
+            
             _timeSheetService.CreateTimeSheetRecord(timeSheet);
             return RedirectToAction("Index");
         }
@@ -103,7 +105,7 @@ namespace SimpleSheets.Controllers
             ViewData["Username"] = username;
             TimeSheet timeSheetsView = new TimeSheet();
             timeSheetsView.ApprovalStatus = status;
-            timeSheetsView.ApprovalViewStatus = status;
+            timeSheetsView.ApprovalViewStatus = true;
             timeSheetsView.Id = timesheetId;
             timeSheetsView.ModifiedBy = username;
             timeSheetsView.ApprovedBy = username;
