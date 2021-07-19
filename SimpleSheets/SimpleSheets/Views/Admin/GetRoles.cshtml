@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SimpleSheets.Data.Models.Roles>
 
     <p>
-        <a asp-controller="Admin" asp-action="AddRoles">Create New</a>
+        <a asp-controller="Admin" asp-action="AddRoles" class="btn btn-success">Create New</a>
     </p>
 <table class="table">
     <thead>
@@ -49,8 +49,8 @@
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditRoleById", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "DeleteRoleById", "Admin", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditRoleById", new { id = item.Id },new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "DeleteRoleById", "Admin", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
 
         </tr>

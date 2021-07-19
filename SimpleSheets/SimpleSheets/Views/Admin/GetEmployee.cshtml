@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SimpleSheets.Data.Models.Employee>
 
     <p>
-        <a asp-controller="Admin" asp-action="AddEmployee">Create New</a>
+        <a asp-controller="Admin" asp-action="AddEmployee" class="btn btn-success">Create New</a>
     </p>
 <table class="table">
     <thead>
@@ -67,8 +67,8 @@
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
             <td>
-                @Html.ActionLink("Edit", "UpdateEmployeeById", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "DeleteEmployeeById", "Admin", new { id = item.EmpId })
+                @Html.ActionLink("Edit", "UpdateEmployeeById", new {  id=item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "DeleteEmployeeById", "Admin", new { id = item.EmpId }, new { @class = "btn btn-danger" })
             </td>
 
         </tr>

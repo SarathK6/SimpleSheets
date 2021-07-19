@@ -71,7 +71,7 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<TimeSheetsView> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "select TimeSheetRecordId, EmployeeName,Project,TimeType,Hours,ApprovalStatus from VW_Timesheet where ApproverId='" + managerId + "'and ApprovalStatus=0";
+                    string query = "select TimeSheetRecordId, EmployeeName,Project,TimeType,Hours,ApprovalStatus from VW_Timesheet where ApproverId='" + managerId + "'and ApprovalViewStatus=0";
                     roles = conn.Query<TimeSheetsView>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
