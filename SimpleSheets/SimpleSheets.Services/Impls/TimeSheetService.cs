@@ -27,11 +27,19 @@ namespace SimpleSheets.Services.Impls
             _timeSheetRepo.CreateTimeSheetRecord(timeSheet);
         }
 
-         public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId)
+        public IEnumerable<TimeSheetsView> GetTimeSheetApprovaData(string managerId)
+        {
+            return _timeSheetRepo.GetTimeSheetApprovaData(managerId);
+        }
+
+        public IEnumerable<TimeSheetsView> GetTimeSheetData(string EmpId)
         {
             return _timeSheetRepo.GetTimeSheetData(EmpId);
         }
 
-        
+        public void UpdateTimesheetStatus(TimeSheet timeSheetsView)
+        {
+            _timeSheetRepo.UpdateTimesheetStatus(timeSheetsView);
+        }
     }
 }

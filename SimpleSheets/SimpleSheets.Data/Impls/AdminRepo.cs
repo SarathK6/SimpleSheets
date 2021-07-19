@@ -426,7 +426,7 @@ namespace SimpleSheets.Data.Impls
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
 
-                    string query1 = "Delete from EmployeeProjectMap where empId=@Id";
+                    string query1 = "Delete from EmployeeRoleMap where empId=@Id";
                     var roles1 = conn.Execute(query1, new { Id = id });
                 }
                 var cacheOptions = new MemoryCacheEntryOptions()

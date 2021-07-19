@@ -64,8 +64,14 @@ namespace SimpleSheets.Controllers
             timeSheet.ModifiedOn = DateTime.Now;
             timeSheet.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
             timeSheet.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            timeSheet.ApprovalStatus = false;
+            timeSheet.ApprovalStatus = empId.ToUpper().ToString()== approverId.ToString().ToUpper()?true:false;
+            timeSheet.ApprovalViewStatus = empId.ToUpper().ToString() == approverId.ToString().ToUpper() ? true : false;
             timeSheet.ApproverId = approverId;
+            if (empId.ToUpper().ToString() == approverId.ToString().ToUpper())
+            {
+                timeSheet.ApprovedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value; ;
+                timeSheet.ApprovedOn = DateTime.Now;
+            }
             _timeSheetService.CreateTimeSheetRecord(timeSheet);
             return RedirectToAction("Index");
         }
@@ -79,6 +85,32 @@ namespace SimpleSheets.Controllers
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
             }
+        }
+        [HttpGet]
+        public IActionResult ApproveTimesheets()
+        {
+            var oid = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
+            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(oid);
+            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            ViewData["Username"] = username;
+            return View(timeSheets);
+        }
+        public IActionResult UpdateStatus(int timesheetId,bool status)
+        {
+            var oid = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
+            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(oid);
+            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            ViewData["Username"] = username;
+            TimeSheet timeSheetsView = new TimeSheet();
+            timeSheetsView.ApprovalStatus = status;
+            timeSheetsView.ApprovalViewStatus = status;
+            timeSheetsView.Id = timesheetId;
+            timeSheetsView.ModifiedBy = username;
+            timeSheetsView.ApprovedBy = username;
+            timeSheetsView.ApprovedOn = DateTime.Now;
+            timeSheetsView.ModifiedOn = DateTime.Now;
+            _timeSheetService.UpdateTimesheetStatus(timeSheetsView);
+            return View("ApproveTimesheets", timeSheets);
         }
 
     }
