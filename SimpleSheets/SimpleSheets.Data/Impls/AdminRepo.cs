@@ -887,8 +887,77 @@ namespace SimpleSheets.Data.Impls
                 throw ex;
 
             }
+        }
+        public EmployeeRoleMap GetEmpRoleMapById(int id)
+        {
+
+            _logger.LogInformation("Entered into GetEmpRoleMapById Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                EmployeeRoleMap roles;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from EmployeeRoleMap where Id=@Id";
+                    roles = conn.QuerySingleOrDefault<EmployeeRoleMap>(query, new { Id = id },
+                        commandTimeout: commandTimeout);
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetEmpRoleMapById Method");
+                return roles;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
+            }
 
 
+
+        }
+
+        public void UpdateEmpRoleMapById(EmployeeRoleMap employee)
+        {
+
+            _logger.LogInformation("Entered into UpdateEmpRoleMapById Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            int attempts = 0;
+            try
+            {
+                attempts++;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+                    string query = "Update EmployeeRoleMap SET Role=@Role,ModifiedOn=@ModifiedOn,ModifiedBy=@ModifiedBy where Id=@Id";
+                    conn.ExecuteScalar<EmployeeRoleMap>(query, employee,
+                        commandTimeout: commandTimeout);
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                    {
+                        Priority = CacheItemPriority.High,
+                        AbsoluteExpiration = DateTime.Now.AddDays(7)
+                    };
+                    _logger.LogInformation("Exited UpdateEmpRoleMapById Method");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                Task.Delay(timeSpanDelay);
+                throw ex;
+
+            }
 
         }
     }

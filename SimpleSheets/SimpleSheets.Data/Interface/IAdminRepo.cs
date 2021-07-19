@@ -36,6 +36,9 @@ namespace SimpleSheets.Data.Interface
         public void UpdateEmployeeById(Employee employee);
         public TimeType GetTimeTypeById(int id);
         public void UpdateTimeTypeById(TimeType timeType);
+
+        public EmployeeRoleMap GetEmpRoleMapById(int id);
+        public void UpdateEmpRoleMapById(EmployeeRoleMap employeeRoleMap);
     }
 }
 

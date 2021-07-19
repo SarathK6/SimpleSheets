@@ -233,6 +233,25 @@ namespace SimpleSheets.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult EditEmpRoleMap(int id)
+        {
+
+            ViewData["Roles"]= _adminService.GetRoles();
+            var model = _adminService.GetEmpRoleMapById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditEmpRoleMap(EmployeeRoleMap emp)
+        {
+            emp.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            emp.ModifiedOn = DateTime.Now;
+            _adminService.UpdateEmpRoleMapById(emp);
+            return RedirectToAction("Index");
+
+        }
+
 
 
     }

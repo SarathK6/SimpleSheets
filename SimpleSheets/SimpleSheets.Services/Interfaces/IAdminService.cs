@@ -39,5 +39,9 @@ namespace SimpleSheets.Services.Interfaces
 
         public TimeType GetTimeTypeById(int id);
         public void UpdateTimeTypeById(TimeType time);
+
+        public EmployeeRoleMap GetEmpRoleMapById(int id);
+
+        public void UpdateEmpRoleMapById(EmployeeRoleMap emp);
     }
 }
