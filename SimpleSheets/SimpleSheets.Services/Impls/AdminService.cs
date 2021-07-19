@@ -127,5 +127,15 @@ namespace SimpleSheets.Services.Impls
 
             _adminRepo.UpdateTimeTypeById(timeType);
         }
+
+        public EmployeeRoleMap GetEmpRoleMapById(int id)
+        {
+                return   _adminRepo.GetEmpRoleMapById(id);
+
+        }
+        public void UpdateEmpRoleMapById(EmployeeRoleMap employeeRole)
+        {
+            _adminRepo.UpdateEmpRoleMapById(employeeRole);
+        }
     }
 }

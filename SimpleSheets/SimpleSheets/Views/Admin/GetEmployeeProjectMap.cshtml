@@ -55,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |               
+                @Html.ActionLink("Edit", "EditEmpRoleMap", new {  id=item.Id  }) |               
                 @Html.ActionLink("Delete", "DeleteEmpRoleMap", "Admin" ,new {  id=item.Id })
             </td>
         </tr>

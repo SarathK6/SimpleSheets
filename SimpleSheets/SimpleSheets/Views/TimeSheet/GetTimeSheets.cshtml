@@ -49,7 +49,14 @@
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                @if(item.ApprovalStatus)
+                {
+                  @Html.Label("Approved")
+                }
+                else
+                {
+                    @Html.Label("Pending")
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApprovedOn)
