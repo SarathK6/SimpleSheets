@@ -66,7 +66,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ModifiedBy)
             </td>
-            
+            <td>
+                @Html.ActionLink("Edit", "UpdateEmployeeById", new {  id=item.Id }) |
+                @Html.ActionLink("Delete", "DeleteEmployeeById", "Admin", new { id = item.EmpId })
+            </td>
+
         </tr>
 }
     </tbody>

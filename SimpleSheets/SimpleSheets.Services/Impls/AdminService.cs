@@ -9,7 +9,7 @@ using System.Text;
 
 namespace SimpleSheets.Services.Impls
 {
-    public class AdminService: IAdminService
+    public class AdminService : IAdminService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<AdminService> _logger;
@@ -65,6 +65,67 @@ namespace SimpleSheets.Services.Impls
         public IEnumerable<TimeType> GetTimeType()
         {
             return _adminRepo.GetTimeType();
+        }
+
+        public void DeleteRoleById(int id)
+        {
+            _adminRepo.DeleteRoleById(id);
+        }
+        public void DeleteEmployeeById(string id)
+        {
+            _adminRepo.DeleteEmployeeById(id);
+
+        }
+        public void DeleteProject(int id)
+        {
+            _adminRepo.DeleteProject(id);
+        }
+        public void DeleteEmpRoleMap(string id)
+        {
+            _adminRepo.DeleteEmpRoleMap(id);
+        }
+
+        public void DeleteTimeType(int id)
+        {
+            _adminRepo.DeleteTimeType(id);
+        }
+
+        public Roles GetRolesbyId(int id)
+        {
+            return  _adminRepo.GetRolesbyId(id);
+        }
+
+        public void UpdateRoleById(Roles roles)
+        {
+            _adminRepo.UpdateRoleById(roles);
+        
+        }
+        public Projects GetProjectById(int id)
+        {
+            return _adminRepo.GetProjectById(id);
+        }
+
+        public void UpdateProjectById(Projects projects)
+        {
+            _adminRepo.UpdateProjectById(projects);
+        }
+
+        public Employee GetEmployeeById(int id)
+        {
+            return _adminRepo.GetEmployeeById(id);
+        }
+        public void UpdateEmployeeById(Employee employee)
+        {
+            _adminRepo.UpdateEmployeeById(employee);
+        }
+        public TimeType GetTimeTypeById(int id)
+        {
+            return _adminRepo.GetTimeTypeById(id);
+        }
+        public void UpdateTimeTypeById(TimeType timeType)
+        {
+
+            _adminRepo.UpdateTimeTypeById(timeType);
         }
     }
 }

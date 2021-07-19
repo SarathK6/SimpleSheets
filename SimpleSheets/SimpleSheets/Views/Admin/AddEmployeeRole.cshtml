@@ -1,7 +1,7 @@
 ﻿@model SimpleSheets.Data.Models.EmployeeRoleMap
 @{ 
-    var roles = ViewBag["roles"] as IEnumerable<SimpleSheets.Data.Models.Roles>;
-    var employees = ViewBag["employees"] as IEnumerable<SimpleSheets.Data.Models.Employee>;
+    var roles = ViewData["roles"] as IEnumerable<SimpleSheets.Data.Models.Roles>;
+    var employees = ViewData["employees"] as IEnumerable<SimpleSheets.Data.Models.Employee>;
 }
 
 <h4>EmployeeRoleMap</h4>
@@ -18,7 +18,7 @@
                     @{
                         foreach (var employee in employees)
                         {
-                            <option value="@employee.Id">@employee.FullName</option>
+                            <option value="@employee.EmpId">@employee.FullName</option>
                         }
                     }
                 </select>

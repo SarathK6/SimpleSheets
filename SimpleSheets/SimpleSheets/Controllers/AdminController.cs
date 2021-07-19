@@ -101,6 +101,7 @@ namespace SimpleSheets.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult AddRoles(Roles roles)
         {
             roles.CreatedOn = DateTime.Now;
@@ -121,9 +122,118 @@ namespace SimpleSheets.Controllers
         {
             var roles = _adminService.GetRoles();
             var employees =_adminService.GetEmployee();
-            ViewBag["roles"] = roles;
-            ViewBag["employees"] = employees;
+            ViewData["roles"] = roles;
+            ViewData["employees"] = employees;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult AddEmployeeRole(EmployeeRoleMap emp)
+        {
+            emp.CreatedOn = DateTime.Now;
+            emp.ModifiedOn = DateTime.Now;
+            emp.CreatedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            emp.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.AddEmployeeRole(emp);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteRoleById(int id)
+        {
+            _adminService.DeleteRoleById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmployeeById(string id)
+        {
+
+            _adminService.DeleteEmployeeById(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteProject(int id)
+        {
+            _adminService.DeleteProject(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteEmpRoleMap(string id)
+        {
+            _adminService.DeleteEmpRoleMap(id);
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult DeleteTimeType(int id)
+        {
+            _adminService.DeleteTimeType(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult EditRoleById(int id)
+        {
+            var model=_adminService.GetRolesbyId(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditRoleById(Roles roles)
+        {
+            roles.ModifiedOn = DateTime.Now;
+            roles.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateRoleById(roles);
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProjectById(int id)
+        {
+            var model = _adminService.GetProjectById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult UpdateProjectById(Projects projects)
+        {
+            projects.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            projects.ModifiedOn = DateTime.Now;
+            _adminService.UpdateProjectById(projects);            
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateEmployeeById(int id)
+
+        {
+
+            var model = _adminService.GetEmployeeById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEmployeeById(Employee employee)
+        {
+
+            employee.ModifiedOn = DateTime.Now;
+            employee.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateEmployeeById(employee);
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateTimeTypeById(int id)
+        {
+
+            var model = _adminService.GetTimeTypeById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult UpdateTimeTypeById(TimeType timeType)
+        {
+
+            timeType.ModifiedOn = DateTime.Now;
+            timeType.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _adminService.UpdateTimeTypeById(timeType);
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

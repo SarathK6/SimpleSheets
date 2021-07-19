@@ -21,6 +21,12 @@ namespace SimpleSheets.Controllers
             _genericService = genericService;
             
         }
+        public IActionResult GetmyDetails()
+        {
+            var oid= User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
+            var employee = _genericService.GetmyDetailsfromDb(oid);
+            return View(employee);
+        }
         public IActionResult Index()
         {
             var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
