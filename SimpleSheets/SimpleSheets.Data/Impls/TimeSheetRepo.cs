@@ -33,8 +33,8 @@ namespace SimpleSheets.Data.Impls
                 attempts++;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "INSERT INTO TimeSheet(EmpId,NoOfHours,TimeTypeID,ProjectId ,Description,CreatedOn ,CreatedBy ,ModifiedOn,ModifiedBy,ApproverId,ApprovalStatus,ApprovalViewStatus,ApprovedBy,ApprovedOn)"
-                        + "VALUES(@EmpId,@NoOfHours,@TimeTypeID,@ProjectId ,@Description,@CreatedOn ,@CreatedBy ,@ModifiedOn,@ModifiedBy,@ApproverId,@ApprovalStatus,@ApprovalViewStatus,@ApprovedBy,@ApprovedOn)";
+                    string query = "INSERT INTO TimeSheet(EmpId,NoOfHours,TimeTypeID,ProjectId ,Description,CreatedOn ,CreatedBy ,ModifiedOn,ModifiedBy,ApproverId,ApprovalStatus,ApprovalViewStatus,ApprovedBy,ApprovedOn,TimeSheetEntryDate)"
+                        + "VALUES(@EmpId,@NoOfHours,@TimeTypeID,@ProjectId ,@Description,@CreatedOn ,@CreatedBy ,@ModifiedOn,@ModifiedBy,@ApproverId,@ApprovalStatus,@ApprovalViewStatus,@ApprovedBy,@ApprovedOn,@TimeSheetEntryDate)";
                     conn.ExecuteScalar<Employee>(query, timeSheet,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -71,7 +71,7 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<TimeSheetsView> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "select TimeSheetRecordId, EmployeeName,Project,TimeType,Hours,ApprovalStatus from VW_Timesheet where ApproverId='" + managerId + "'and ApprovalViewStatus=0";
+                    string query = "select TimeSheetRecordId, EmployeeName,Project,TimeType,Hours,ApprovalStatus,TimeSheetEntryDate,Description from VW_Timesheet where ApproverId='" + managerId + "'and ApprovalViewStatus=0";
                     roles = conn.Query<TimeSheetsView>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
@@ -108,7 +108,7 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<TimeSheetsView> roles;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "select EmployeeName,Project,TimeType,ApproverName,Hours,ApprovalStatus,ApprovedOn,ApprovalViewStatus from VW_Timesheet where EmployeeId='" + EmpId+"'";
+                    string query = "select EmployeeName,Project,TimeType,ApproverName,Hours,ApprovalStatus,ApprovedOn,ApprovalViewStatus,TimeSheetEntryDate,Description from VW_Timesheet where EmployeeId='" + EmpId+"'";
                     roles = conn.Query<TimeSheetsView>(query, null,
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()

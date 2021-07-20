@@ -15,5 +15,7 @@ namespace SimpleSheets.Data.Models
         public bool ApprovalStatus { get; set; }
         public bool ApprovalViewStatus { get; set; }
         public DateTime ApprovedOn { get; set; }
+        public DateTime TimeSheetEntryDate { get; set; }
+        public string Description { get; set; }
     }
 }

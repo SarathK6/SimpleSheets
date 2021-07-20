@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<SimpleSheets.Data.Models.TimeSheetsView>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -10,49 +8,58 @@
                 @Html.DisplayNameFor(model => model.EmployeeName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TimeSheetEntryDate)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TimeType)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Hours)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApprovalStatus)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeType)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Hours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovalStatus)
-            </td>
-            
-            
-            <td>
-                @Html.ActionLink("Approve", "UpdateStatus", new {  timesheetId=item.TimeSheetRecordId,status=true  }, new { @class = "btn btn-primary" }) 
-                @Html.ActionLink("Reject", "UpdateStatus", new { timesheetId=item.TimeSheetRecordId,status=false }) 
-                
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSheetEntryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovalStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Approve", "UpdateStatus", new { timesheetId = item.TimeSheetRecordId, status = true }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Reject", "UpdateStatus", new { timesheetId = item.TimeSheetRecordId, status = false })
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

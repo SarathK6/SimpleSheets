@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SimpleSheets.Data.Models
@@ -8,6 +9,7 @@ namespace SimpleSheets.Data.Models
     {
         public int Id { get; set; }
         public Guid EmpId { get; set; }
+        [Range(0, 24)]
         public float NoOfHours { get; set; }
         public int TimeTypeId { get; set; }
         public int ProjectId { get; set; }
@@ -21,5 +23,6 @@ namespace SimpleSheets.Data.Models
         public string ApprovedBy { get; set; }
         public DateTime ApprovedOn { get; set; }
         public bool ApprovalViewStatus { get; set; }
+        public DateTime TimeSheetEntryDate { get; set; }
     }
 }
