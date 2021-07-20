@@ -86,8 +86,8 @@
                 <td>
                     @if (!item.ApprovalViewStatus)
                     {
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Edit", "EditTimeSheet", new {  id=item.TimeSheetRecordId  },new { @class="btn btn-primary"})
+                        @Html.ActionLink("Delete", "DeleteTimesheet", new {  id=item.TimeSheetRecordId },new { @class = "btn btn-danger" })
                     }
                 </td>
             </tr>

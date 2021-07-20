@@ -73,13 +73,22 @@ namespace SimpleSheets.Controllers
         }
         public IActionResult CreateTimeType(TimeType timeType)
         {
-            ViewData["Username"] = _userName;
-            timeType.CreatedOn = DateTime.Now;
-            timeType.ModifiedOn = DateTime.Now;
-            timeType.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            timeType.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            _adminService.CreateTimeType(timeType);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Username"] = _userName;
+                timeType.CreatedOn = DateTime.Now;
+                timeType.ModifiedOn = DateTime.Now;
+                timeType.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                timeType.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                _adminService.CreateTimeType(timeType);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                return View();
+            }
         }
         [HttpGet]
         public IActionResult CreateProjects()
@@ -87,15 +96,25 @@ namespace SimpleSheets.Controllers
             ViewData["Username"] = _userName;
             return View();
         }
+
+        [HttpPost]
         public IActionResult CreateProjects(Projects projects)
         {
-            ViewData["Username"] = _userName;
-            projects.CreatedOn = DateTime.Now;
-            projects.ModifiedOn = DateTime.Now;
-            projects.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            projects.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            _adminService.CreateProjects(projects);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Username"] = _userName;
+                projects.CreatedOn = DateTime.Now;
+                projects.ModifiedOn = DateTime.Now;
+                projects.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                projects.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                _adminService.CreateProjects(projects);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Username"] = _userName;
+                return View();
+            }
         }
         [HttpGet]
         public IActionResult AddEmployee()
@@ -108,14 +127,24 @@ namespace SimpleSheets.Controllers
         }
         public IActionResult AddEmployee(Employee employee)
         {
-            ViewData["Username"] = _userName;
-            ViewData["Title"] = _title;
-            employee.CreatedOn = DateTime.Now;
-            employee.ModifiedOn = DateTime.Now;
-            employee.CreatedBy = _userName;
-            employee.ModifiedBy = _userName;
-            _adminService.AddEmployee(employee);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                employee.CreatedOn = DateTime.Now;
+                employee.ModifiedOn = DateTime.Now;
+                employee.CreatedBy = _userName;
+                employee.ModifiedBy = _userName;
+                _adminService.AddEmployee(employee);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Username"] = _userName;
+                var manager = _adminService.GetEmployee();
+                ViewData["manager"] = manager;
+                return View();
+            }
         }
         [HttpGet]
         public IActionResult AddRoles()
@@ -127,14 +156,23 @@ namespace SimpleSheets.Controllers
         [HttpPost]
         public IActionResult AddRoles(Roles roles)
         {
-            ViewData["Username"] = _userName;
-            ViewData["Title"] = _title;
-            roles.CreatedOn = DateTime.Now;
-            roles.ModifiedOn = DateTime.Now;
-            roles.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            roles.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            _adminService.AddRole(roles);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                roles.CreatedOn = DateTime.Now;
+                roles.ModifiedOn = DateTime.Now;
+                roles.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                roles.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                _adminService.AddRole(roles);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                return View();
+            }
         }
         [HttpGet]
         public IActionResult GetEmployeeProjectMap()
@@ -159,14 +197,27 @@ namespace SimpleSheets.Controllers
         [HttpPost]
         public IActionResult AddEmployeeRole(EmployeeRoleMap emp)
         {
-            ViewData["Username"] = _userName;
-            ViewData["Title"] = _title;
-            emp.CreatedOn = DateTime.Now;
-            emp.ModifiedOn = DateTime.Now;
-            emp.CreatedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            emp.ModifiedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            _adminService.AddEmployeeRole(emp);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                emp.CreatedOn = DateTime.Now;
+                emp.ModifiedOn = DateTime.Now;
+                emp.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                emp.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+                _adminService.AddEmployeeRole(emp);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                var roles = _adminService.GetRoles();
+                var employees = _adminService.GetEmployee();
+                ViewData["roles"] = roles;
+                ViewData["employees"] = employees;
+                return View();
+            }
         }
 
         public IActionResult DeleteRoleById(int id)
