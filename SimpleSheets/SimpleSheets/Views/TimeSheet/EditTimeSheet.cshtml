@@ -1,0 +1,81 @@
+﻿@model SimpleSheets.Data.Models.TimeSheetsView
+
+@{
+        var EmpId = ViewData["EmpId"];
+        var timeTypes = ViewData["timeType"] as IEnumerable<SimpleSheets.Data.Models.TimeType>;
+        var EmpUserName = ViewData["EmpUserName"];
+        var projects = ViewData["projects"] as IEnumerable<SimpleSheets.Data.Models.Projects>;
+}
+
+
+<h1>Edit Time Sheet</h1>
+
+<h4>Time Sheets View</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditTimeSheet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">             
+                @Html.HiddenFor(m =>m.TimeSheetRecordId)
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label"></label>
+                <input asp-for="EmployeeName" class="form-control" disabled />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Project" class="control-label"></label>
+                <select asp-for="Project" name="Project" class="form-control">
+                    <option value="0">Select</option>
+                    @{
+                        foreach (var project in projects)
+                        {
+                            <option value="@project.Id">@project.ProjectTitle</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Project" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeType" class="control-label"></label>
+                <select asp-for="TimeType" name="TimeType" class="form-control">
+                    <option value="0">Select</option>
+                    @{
+                        foreach (var timeType in timeTypes)
+                        {
+                            <option value="@timeType.Id">@timeType.TimetypeTitle</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="TimeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hours" class="control-label"></label>
+                <input asp-for="Hours" class="form-control" />
+                <span asp-validation-for="Hours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeSheetEntryDate" class="control-label"></label>
+                <input asp-for="TimeSheetEntryDate" class="form-control" />
+                <span asp-validation-for="TimeSheetEntryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

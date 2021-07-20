@@ -66,25 +66,41 @@ namespace SimpleSheets.Controllers
         }
         public IActionResult CreateTimeSheet(TimeSheet timeSheet)
         {
-            ViewData["Username"] = _userName;
-            ViewData["Title"] = _title;
-            timeSheet.EmpId = new Guid(_empId);
-            timeSheet.CreatedOn = DateTime.Now;
-            timeSheet.ModifiedOn = DateTime.Now;
-            timeSheet.CreatedBy = _userName;
-            timeSheet.ModifiedBy = _userName;
-            timeSheet.ApprovalStatus = _empId.ToUpper().ToString()== _managerId.ToString().ToUpper()?true:false;
-            timeSheet.ApprovalViewStatus = _empId.ToUpper().ToString() == _managerId.ToString().ToUpper() ? true : false;
-            timeSheet.ApproverId = _managerId;
-            timeSheet.ApprovedOn = new DateTime(1753, 1, 1);
-            if (_empId.ToUpper().ToString() == _managerId.ToString().ToUpper())
+            if (ModelState.IsValid)
             {
-                timeSheet.ApprovedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value; ;
-                timeSheet.ApprovedOn = DateTime.Now;
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                timeSheet.EmpId = new Guid(_empId);
+                timeSheet.CreatedOn = DateTime.Now;
+                timeSheet.ModifiedOn = DateTime.Now;
+                timeSheet.CreatedBy = _userName;
+                timeSheet.ModifiedBy = _userName;
+                timeSheet.ApprovalStatus = _empId.ToUpper().ToString() == _managerId.ToString().ToUpper() ? true : false;
+                timeSheet.ApprovalViewStatus = _empId.ToUpper().ToString() == _managerId.ToString().ToUpper() ? true : false;
+                timeSheet.ApproverId = _managerId;
+                timeSheet.ApprovedOn = new DateTime(1753, 1, 1);
+                if (_empId.ToUpper().ToString() == _managerId.ToString().ToUpper())
+                {
+                    timeSheet.ApprovedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value; ;
+                    timeSheet.ApprovedOn = DateTime.Now;
+                }
+
+                _timeSheetService.CreateTimeSheetRecord(timeSheet);
+                return RedirectToAction("Index");
             }
-            
-            _timeSheetService.CreateTimeSheetRecord(timeSheet);
-            return RedirectToAction("Index");
+            else
+            {
+                var timeType = _genericService.GetTimeType();
+                var project = _genericService.GetProjects();
+                ViewData["Username"] = _userName;
+                ViewData["timeType"] = timeType;
+                ViewData["projects"] = project;
+                ViewData["EmpId"] = _empId;
+                ViewData["EmpUserName"] = _userName;
+                ViewData["Title"] = _title;
+                return View();
+
+            }
         }
         [HttpPost]
         [Route("Logout")]
@@ -120,6 +136,55 @@ namespace SimpleSheets.Controllers
             timeSheetsView.ModifiedOn = DateTime.Now;
             _timeSheetService.UpdateTimesheetStatus(timeSheetsView);
             return View("ApproveTimesheets", timeSheets);
+        }
+        [HttpGet]
+        public IActionResult EditTimeSheet(int id)
+        {
+            var timeType = _genericService.GetTimeType();
+            var project = _genericService.GetProjects();
+            ViewData["timeType"] = timeType;
+            ViewData["projects"] = project;
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
+            var model = _timeSheetService.GetTimeSheetDataById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditTimeSheet(TimeSheetsView timeSheet)
+        {
+            TimeSheet ts = new TimeSheet();
+            ts.Id = timeSheet.TimeSheetRecordId;
+            if (ModelState.IsValid)
+            {
+               
+                ts.ModifiedOn = DateTime.Now;
+                ts.ModifiedBy = _userName;
+                ts.Id = timeSheet.TimeSheetRecordId;
+                ts.NoOfHours = timeSheet.Hours;
+                ts.ProjectId = int.Parse(timeSheet.Project);
+                ts.TimeTypeId = int.Parse(timeSheet.TimeType);
+                ts.Description = timeSheet.Description;
+                _timeSheetService.UpdateTimesheetById(ts);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var timeType = _genericService.GetTimeType();
+                var project = _genericService.GetProjects();
+                ViewData["timeType"] = timeType;
+                ViewData["projects"] = project;
+                ViewData["Username"] = _userName;
+                ViewData["Title"] = _title;
+                var model = _timeSheetService.GetTimeSheetDataById(ts.Id);
+                return View(model);
+            }
+
+        }
+
+        public IActionResult DeleteTimesheet(int id)
+        {
+            _timeSheetService.DeleteTimesheetById(id);
+            return RedirectToAction("Index");
         }
 
     }

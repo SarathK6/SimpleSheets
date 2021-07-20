@@ -41,5 +41,19 @@ namespace SimpleSheets.Services.Impls
         {
             _timeSheetRepo.UpdateTimesheetStatus(timeSheetsView);
         }
+
+        public TimeSheetsView GetTimeSheetDataById(int id)
+        {
+            return _timeSheetRepo.GetTimeSheetDataById(id);
+        }
+
+        public void UpdateTimesheetById(TimeSheet timeSheet)
+        {
+            _timeSheetRepo.UpdateTimesheetById(timeSheet);
+        }
+        public void DeleteTimesheetById(int id)
+        {
+            _timeSheetRepo.DeleteTimesheetById(id);
+        }
     }
 }

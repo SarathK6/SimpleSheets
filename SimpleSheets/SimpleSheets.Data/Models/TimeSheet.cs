@@ -9,10 +9,21 @@ namespace SimpleSheets.Data.Models
     {
         public int Id { get; set; }
         public Guid EmpId { get; set; }
-        [Range(0, 24)]
+        
+
+        [Required]
+        [Range(1, 10)]
         public float NoOfHours { get; set; }
+
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage ="Please select a valid Time type")]
         public int TimeTypeId { get; set; }
+
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage ="Please select a valid Project")]
         public int ProjectId { get; set; }
+
+        [Required]
         public string Description { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
@@ -23,6 +34,10 @@ namespace SimpleSheets.Data.Models
         public string ApprovedBy { get; set; }
         public DateTime ApprovedOn { get; set; }
         public bool ApprovalViewStatus { get; set; }
+
+        [CustomAdmissionDate(ErrorMessage = "TimeSheet Entry Date must be less than or equal to Today's Date.")]
         public DateTime TimeSheetEntryDate { get; set; }
     }
+
+   
 }

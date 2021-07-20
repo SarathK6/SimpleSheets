@@ -11,5 +11,11 @@ namespace SimpleSheets.Data.Interface
         public void CreateTimeSheetRecord(TimeSheet timeSheet);
         public IEnumerable<TimeSheetsView> GetTimeSheetApprovaData(string managerId);
         public void UpdateTimesheetStatus(TimeSheet timeSheetsView);
+
+        public TimeSheetsView GetTimeSheetDataById(int id);
+
+        public void UpdateTimesheetById(TimeSheet timesheet);
+
+        public void DeleteTimesheetById(int id);
     }
 }
