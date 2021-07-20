@@ -54,6 +54,7 @@ namespace SimpleSheets
                 options.Filters.Add(new AuthorizeFilter(policy));
                 options.Filters.Add(new RequireHttpsAttribute());
             }).AddMicrosoftIdentityUI();
+            services.AddHttpContextAccessor();
             //services.AddControllersWithViews();
         }
 

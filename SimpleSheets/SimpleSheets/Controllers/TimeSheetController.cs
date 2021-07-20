@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSheets.Data.Models;
 using SimpleSheets.Services.Interfaces;
@@ -15,31 +16,39 @@ namespace SimpleSheets.Controllers
     {
         private readonly ITimeSheetService _timeSheetService;
         private readonly IGenericService _genericService;
-        public TimeSheetController(ITimeSheetService timeSheetService, IGenericService genericService)
+        private readonly string _userName;
+        private readonly string _empId;
+        private readonly Guid _managerId;
+        private readonly string _title;
+
+        public TimeSheetController(ITimeSheetService timeSheetService, IGenericService genericService, IHttpContextAccessor contextAccessor)
         {
             _timeSheetService = timeSheetService;
             _genericService = genericService;
-            
+            _userName = contextAccessor.HttpContext.User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            _empId= contextAccessor.HttpContext.User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
+            _managerId= _genericService.GetEmployeeManagerId(_empId);
+            _title = "Timsheets";
         }
         public IActionResult GetmyDetails()
         {
-            var oid= User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var employee = _genericService.GetmyDetailsfromDb(oid);
+            var employee = _genericService.GetmyDetailsfromDb(_empId);
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
             return View(employee);
         }
         public IActionResult Index()
         {
-            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            ViewData["Username"] = username;
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
             return View();
         }
         [HttpGet]
         public IActionResult GetTimeSheets()
         {
-            var oid = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var timeSheets = _timeSheetService.GetTimeSheetData(oid);
-            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            ViewData["Username"] = username;
+            var timeSheets = _timeSheetService.GetTimeSheetData(_empId);
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
             return View(timeSheets);
         }
         [HttpGet]
@@ -47,28 +56,28 @@ namespace SimpleSheets.Controllers
         {
             var timeType = _genericService.GetTimeType();
             var project = _genericService.GetProjects();
-            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            ViewData["Username"] = username;
+            ViewData["Username"] = _userName;
             ViewData["timeType"] = timeType;
             ViewData["projects"] = project;
-            ViewData["EmpId"] = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value; ;
-            ViewData["EmpUserName"] = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
+            ViewData["EmpId"] = _empId;
+            ViewData["EmpUserName"] = _userName;
+            ViewData["Title"] = _title;
             return View();
         }
         public IActionResult CreateTimeSheet(TimeSheet timeSheet)
         {
-            var empId= User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var approverId= _genericService.GetEmployeeManagerId(empId);
-            timeSheet.EmpId = new Guid(empId);
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
+            timeSheet.EmpId = new Guid(_empId);
             timeSheet.CreatedOn = DateTime.Now;
             timeSheet.ModifiedOn = DateTime.Now;
-            timeSheet.CreatedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            timeSheet.ModifiedBy = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            timeSheet.ApprovalStatus = empId.ToUpper().ToString()== approverId.ToString().ToUpper()?true:false;
-            timeSheet.ApprovalViewStatus = empId.ToUpper().ToString() == approverId.ToString().ToUpper() ? true : false;
-            timeSheet.ApproverId = approverId;
+            timeSheet.CreatedBy = _userName;
+            timeSheet.ModifiedBy = _userName;
+            timeSheet.ApprovalStatus = _empId.ToUpper().ToString()== _managerId.ToString().ToUpper()?true:false;
+            timeSheet.ApprovalViewStatus = _empId.ToUpper().ToString() == _managerId.ToString().ToUpper() ? true : false;
+            timeSheet.ApproverId = _managerId;
             timeSheet.ApprovedOn = new DateTime(1753, 1, 1);
-            if (empId.ToUpper().ToString() == approverId.ToString().ToUpper())
+            if (_empId.ToUpper().ToString() == _managerId.ToString().ToUpper())
             {
                 timeSheet.ApprovedBy= User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value; ;
                 timeSheet.ApprovedOn = DateTime.Now;
@@ -91,24 +100,22 @@ namespace SimpleSheets.Controllers
         [HttpGet]
         public IActionResult ApproveTimesheets()
         {
-            var oid = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(oid);
-            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            ViewData["Username"] = username;
+            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(_empId);
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
             return View(timeSheets);
         }
         public IActionResult UpdateStatus(int timesheetId,bool status)
         {
-            var oid = User.Claims.Where(cl => cl.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").FirstOrDefault().Value;
-            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(oid);
-            var username = User.Claims.Where(cl => cl.Type == "name").FirstOrDefault().Value;
-            ViewData["Username"] = username;
+            var timeSheets = _timeSheetService.GetTimeSheetApprovaData(_empId);
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
             TimeSheet timeSheetsView = new TimeSheet();
             timeSheetsView.ApprovalStatus = status;
             timeSheetsView.ApprovalViewStatus = true;
             timeSheetsView.Id = timesheetId;
-            timeSheetsView.ModifiedBy = username;
-            timeSheetsView.ApprovedBy = username;
+            timeSheetsView.ModifiedBy = _userName;
+            timeSheetsView.ApprovedBy = _userName;
             timeSheetsView.ApprovedOn = DateTime.Now;
             timeSheetsView.ModifiedOn = DateTime.Now;
             _timeSheetService.UpdateTimesheetStatus(timeSheetsView);

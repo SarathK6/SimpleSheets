@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="CreateTimeSheet">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label class="control-label"></label>
                 <input class="form-control" value="@EmpId" disabled />
@@ -21,6 +22,11 @@
                 <label class="control-label"></label>
                 <input class="form-control" value="@EmpUserName" disabled />
                 <span asp-validation-for="EmpId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeSheetEntryDate" class="control-label"></label>
+                <input asp-for="TimeSheetEntryDate" class="form-control" id="datepicker" />
+                <span asp-validation-for="TimeSheetEntryDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NoOfHours" class="control-label"></label>

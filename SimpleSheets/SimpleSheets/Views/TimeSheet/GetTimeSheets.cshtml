@@ -10,6 +10,9 @@
                 @Html.DisplayNameFor(model => model.EmployeeName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TimeSheetEntryDate)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
@@ -25,59 +28,69 @@
                 @Html.DisplayNameFor(model => model.ApprovedOn)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ApprovalStatus)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApproverName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApprovedOn)
-            </td>
-            <td style="font-weight:bold">
-                @if (item.ApprovalViewStatus)
-                {
-                    @if (item.ApprovalStatus)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeSheetEntryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Project)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApprovedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td style="font-weight:bold;">
+                    @if (item.ApprovalViewStatus)
                     {
-                        <span style="color:#28a745">@Html.Label("Approved")</span>
+                        @if (item.ApprovalStatus)
+                        {
+                            <span style="color:#28a745;">@Html.Label("Approved")</span>
+                        }
+                        else
+                        {
+                            <span style="color:#dc3545;">@Html.Label("Rejected")</span>
+                        }
                     }
                     else
                     {
-                        <span style="color:#dc3545">@Html.Label("Rejected")</span>
+                        <span style="color:#8c5949;">@Html.Label("Pending")</span>
                     }
-                }
-                else
-                {
-                    <span style="color:#8c5949">@Html.Label("Pending")</span>
-                }
 
 
-            </td>
-            <td>
-                @if (!item.ApprovalViewStatus)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })                    
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                }
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    @if (!item.ApprovalViewStatus)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
