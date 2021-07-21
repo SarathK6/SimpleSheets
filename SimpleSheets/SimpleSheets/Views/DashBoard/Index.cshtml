@@ -1,0 +1,82 @@
+﻿<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    //Todays Work
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(LoadData);
+
+    function LoadData() {
+        $.ajax({
+            url: 'DashBoard/PopulationChart',
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                PopulationChart(data);
+                return false;
+            }
+        });
+        return false;
+    }
+    function PopulationChart(data) {
+        var dataArray = [['Project', 'Hours Spent']];
+        $.each(data, function (i, item) {
+            dataArray.push([item.projectTitle, item.noOfHours]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Todays Work Breakdown',
+            chartArea: {width: '75%'},
+            colors: ['#dc3545', '#28a745','#004085','#17a2b8','#ffc107','#383d41','#007bff'],
+            hAxis: {title: 'Project',minValue: 0},
+            vAxis: {title: 'Hours'}
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        return false;
+    }
+
+    //Past 7 Days work
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(LoadData1);
+
+    function LoadData1() {
+        $.ajax({
+            url: 'DashBoard/GetEmployeeWorkHoursInAWeek',
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                GetEmployeeWorkHoursInAWeek(data);
+                return false;
+            }
+        });
+        return false;
+    }
+    function GetEmployeeWorkHoursInAWeek(data) {
+        var dataArray = [['TImeSheetEntryDate', 'NoOfHours']];
+        $.each(data, function (i, item) {
+            dataArray.push([item.tImeSheetEntryDate, item.noOfHours]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Work Hours History',
+            chartArea: {width: '75%'},
+            colors: ['#dc3545', '#28a745','#004085','#17a2b8','#ffc107','#383d41','#007bff'],
+            hAxis: {title: 'Project',minValue: 0},
+            vAxis: { title: 'Hours' },
+            
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('Historychart_div'));
+        chart.draw(data, options);
+        return false;
+    }
+</script>
+
+<div id="chart_div"></div>
+<div id="Historychart_div"></div>

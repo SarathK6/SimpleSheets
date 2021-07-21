@@ -38,6 +38,8 @@ namespace SimpleSheets
                 connectionType, connectionString));
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>
                (d => new DbConnectionFactory(connectionDetails));
+            services.AddSingleton<IDashboardRepo, DashboardRepo>();
+            services.AddSingleton<IDashboardService, DashboardService>();
             services.AddSingleton<IAdminRepo, AdminRepo>();
             services.AddSingleton<IAdminService, AdminService>();
             services.AddSingleton<IGenericRepo, GenericRepo>();
@@ -83,7 +85,7 @@ namespace SimpleSheets
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=TimeSheet}/{action=Index}/{id?}");
+                    pattern: "{controller=DashBoard}/{action=Index}/{id?}");
             });
         }
     }
