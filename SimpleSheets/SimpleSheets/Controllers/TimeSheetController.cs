@@ -121,6 +121,7 @@ namespace SimpleSheets.Controllers
             ViewData["Title"] = _title;
             return View(timeSheets);
         }
+       
         public IActionResult UpdateStatus(int timesheetId,bool status)
         {
             var timeSheets = _timeSheetService.GetTimeSheetApprovaData(_empId);
@@ -135,6 +136,7 @@ namespace SimpleSheets.Controllers
             timeSheetsView.ApprovedOn = DateTime.Now;
             timeSheetsView.ModifiedOn = DateTime.Now;
             _timeSheetService.UpdateTimesheetStatus(timeSheetsView);
+            timeSheets = _timeSheetService.GetTimeSheetApprovaData(_empId);
             return View("ApproveTimesheets", timeSheets);
         }
         [HttpGet]

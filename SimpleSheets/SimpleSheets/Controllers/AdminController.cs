@@ -10,7 +10,7 @@ using SimpleSheets.Services.Interfaces;
 
 namespace SimpleSheets.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         public IAdminService _adminService { get; }
@@ -361,4 +361,6 @@ namespace SimpleSheets.Controllers
 
 
     }
+
+   
 }
