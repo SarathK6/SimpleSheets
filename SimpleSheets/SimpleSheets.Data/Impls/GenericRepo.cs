@@ -19,7 +19,6 @@ namespace SimpleSheets.Data.Impls
         {
 
         }
-
         public IEnumerable<Projects> GetProjects()
         {
             _logger.LogInformation("Entered into GetProjects Method");
@@ -57,7 +56,6 @@ namespace SimpleSheets.Data.Impls
 
             }
         }
-
         public IEnumerable<TimeType> GetTimeType()
         {
             _logger.LogInformation("Entered into GetTimeType Method");
@@ -167,9 +165,5 @@ namespace SimpleSheets.Data.Impls
 
 
         }
-
-
-
-
     }
 }
