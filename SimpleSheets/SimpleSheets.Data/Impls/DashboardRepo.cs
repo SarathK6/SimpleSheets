@@ -34,8 +34,8 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<EmployeeWorkPerProject> employeeWorkPerProjects;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "select ProjectTitle,NoOfHours,TimeSheetEntryDate from vw_EmployeeWorkPerProject where empid='"+ empId + "'and TimeSheetEntryDate='"+DateTime.Now+"'";
-                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, null,
+                    string query = "select ProjectTitle,NoOfHours,TimeSheetEntryDate from vw_EmployeeWorkPerProject where empid=@Empid and TimeSheetEntryDate=@Datetime";
+                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid=empId,  Datetime=DateTime.Now.Date},
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
@@ -72,8 +72,8 @@ namespace SimpleSheets.Data.Impls
                 IEnumerable<EmployeeWorkPerProject> employeeWorkPerProjects;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "Select TimeSheetEntryDate,sum(NoOfHours) As NoOfHours from Timesheet  where empid='" + empId + "'and TimeSheetEntryDate>'" + DateTime.Now.AddDays(-7) + "' and TimeTypeId=1 group by TimeSheetEntryDate";
-                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, null,
+                    string query = "Select TimeSheetEntryDate,sum(NoOfHours) As NoOfHours from Timesheet  where empid=@Empid and TimeSheetEntryDate>@Datetime and TimeTypeId=1 group by TimeSheetEntryDate";
+                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid = empId, Datetime = DateTime.Now.AddDays(-7)},
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
