@@ -78,3 +78,14 @@ body {
     font-size: 33px;
     color: #ffc107;
 }
+.user-row .avatar {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background-color: #ccc;
+    overflow: hidden;
+    float: left;
+}
+.user-row .avatar img {
+        width: 100%;
+    }
