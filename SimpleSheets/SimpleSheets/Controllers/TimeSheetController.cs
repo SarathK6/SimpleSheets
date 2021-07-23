@@ -220,6 +220,7 @@ namespace SimpleSheets.Controllers
             _timeSheetService.DeleteTimesheetById(id);
             return RedirectToAction("Index");
         }
+        
 
     }
 }

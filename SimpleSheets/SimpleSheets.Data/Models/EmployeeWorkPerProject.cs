@@ -8,7 +8,7 @@ namespace SimpleSheets.Data.Models
     {
         public Guid EmpId { get; set; }
         public string ProjectTitle { get; set; }
-        public int NoOfHours { get; set; }
+        public float NoOfHours { get; set; }
         public DateTime TImeSheetEntryDate { get; set; }
     }
 }

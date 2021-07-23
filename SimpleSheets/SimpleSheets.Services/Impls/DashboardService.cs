@@ -20,16 +20,16 @@ namespace SimpleSheets.Services.Impls
             _logger = logger;
             _dashboardRepo = dashboardRepo;
         }
-        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId)
+        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId,DateTime date)
         {
-            return _dashboardRepo.GetEmployeeWorkPerProject(empId);
+            return _dashboardRepo.GetEmployeeWorkPerProject(empId,date);
         }
         public List<WorkHistory> GetEmployeeWorkHoursInAWeek(string empId)
         {
             EmployeeWorkPerProject employeeWorkPerProject = new EmployeeWorkPerProject();
             List<WorkHistory> workHistory = new List<WorkHistory>();
             var epps = _dashboardRepo.GetEmployeeWorkHoursInAWeek(empId);
-            Dictionary<DateTime, int> keyValuePairs = new Dictionary<DateTime, int>();
+            Dictionary<DateTime, float> keyValuePairs = new Dictionary<DateTime, float>();
             for (int i=0;i<7;i++)
             {
                 var dateCompare = DateTime.Now.AddDays(-i);

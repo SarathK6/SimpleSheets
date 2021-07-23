@@ -7,7 +7,7 @@ namespace SimpleSheets.Data.Interface
 {
     public interface IDashboardRepo
     {
-        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId);
+        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId,DateTime dateTime);
         public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkHoursInAWeek(string empId);
     }
 }
