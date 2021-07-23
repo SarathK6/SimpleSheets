@@ -51,6 +51,39 @@ namespace SimpleSheets.Controllers
             ViewData["Title"] = _title;
             return View(timeSheets);
         }
+
+        [HttpGet]
+        public IActionResult GetSearchedTimeSheets(string SearchString)
+        {
+            var timeSheets = _timeSheetService.GetTimeSheetData(_empId);
+            switch (SearchString)
+            {
+                case "Approved":
+                    timeSheets = timeSheets.Where(s=>s.ApprovalStatus==true && s.ApprovalViewStatus == true).ToList();
+                    break;
+                case "Rejected":
+                    timeSheets = timeSheets.Where(s => s.ApprovalViewStatus==true && s.ApprovalStatus== false).ToList();
+                    break;
+                case "Pending":
+                    timeSheets = timeSheets.Where(s => s.ApprovalViewStatus == false).ToList();
+                    break;
+                default:
+                    break;
+            }
+           
+            
+            ViewData["Username"] = _userName;
+            ViewData["Title"] = _title;
+            return View("GetTimeSheets",timeSheets);
+        }
+
+        public IActionResult GetDatedTimeSheets(string Searchdate)
+        {
+            var timeSheets = _timeSheetService.GetTimeSheetData(_empId);
+            timeSheets = timeSheets.Where(s => s.TimeSheetEntryDate.ToString("yyyy-MM-dd") == Searchdate);
+            return View("GetTimeSheets", timeSheets);
+
+        }
         [HttpGet]
         public IActionResult CreateTimeSheet()
         {

@@ -3,41 +3,69 @@
 <p>
     <a asp-controller="TimeSheet" asp-action="CreateTimeSheet" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeSheetEntryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApproverName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApprovalStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container">
+    <div class="row">
+        <div class="col-xs-5 col-sm-5 col-md-5">
+            <form asp-action="GetSearchedTimeSheets" method="Get">
+                <div class="form-actions no-color">
+                    <p>
+                        Find by Status: <select name="SearchString" class="form-control" style="width:150px;max-width:150px;" />
+                        <option value="All">All</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Pending">Pending</option>
+                        </select>
+                        <input type="submit" value="Search" class="btn btn-success" />
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7">
+            <form asp-action="GetDatedTimeSheets" method="get">
+                <p>
+                    <input type="date" name="Searchdate" />
+                    <input type="submit" value="Filter" class="btn btn-success" />
+                </p>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeSheetEntryDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Project)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApproverName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApprovalStatus)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -67,18 +95,18 @@
                 <td style="font-weight:bold;">
                     @if (item.ApprovalViewStatus)
                     {
-                        @if (item.ApprovalStatus)
+                    @if (item.ApprovalStatus)
                         {
-                            <span style="color:#28a745;">@Html.Label("Approved")</span>
+                    <span style="color:#28a745;">@Html.Label("Approved")</span>
                         }
                         else
                         {
-                            <span style="color:#dc3545;">@Html.Label("Rejected")</span>
+                    <span style="color:#dc3545;">@Html.Label("Rejected")</span>
                         }
                     }
                     else
                     {
-                        <span style="color:#8c5949;">@Html.Label("Pending")</span>
+                    <span style="color:#8c5949;">@Html.Label("Pending")</span>
                     }
 
 
@@ -86,11 +114,11 @@
                 <td>
                     @if (!item.ApprovalViewStatus)
                     {
-                        @Html.ActionLink("Edit", "EditTimeSheet", new {  id=item.TimeSheetRecordId  },new { @class="btn btn-primary"})
-                        @Html.ActionLink("Delete", "DeleteTimesheet", new {  id=item.TimeSheetRecordId },new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "EditTimeSheet", new {  id=item.TimeSheetRecordId  },new { @class="btn btn-primary"})
+                    @Html.ActionLink("Delete", "DeleteTimesheet", new {  id=item.TimeSheetRecordId },new { @class = "btn btn-danger" })
                     }
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
