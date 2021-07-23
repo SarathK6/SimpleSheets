@@ -31,12 +31,17 @@
                         }
                     </ul>
                 </div>
-                <div>
-                    <a class="nav-link text-white" asp-area="">Hey, <b>@ViewData["Username"]</b></a>
-                    @using (Html.BeginForm("Logout", "TimeSheet"))
-                    {
-                        <input asp-area="MicrosoftIdentity" class="logout btn btn-danger text-white" type="button" value="Logout" style="float:right;" />
-                    }
+                <div class="user">
+                    <div class="user-row" style="width: 382px;">
+                        <div class="avatar">
+                           <img src="~/uploads/Images/d099e608-b562-4983-877e-cf39790e5893_Image.jpg" />
+                        </div>
+                        <a class="nav-link text-white" asp-area="" style="float: left;"><b>@ViewData["Username"]</b></a>
+                        @using (Html.BeginForm("Logout", "TimeSheet"))
+                        {
+                            <input asp-area="MicrosoftIdentity" class="logout btn btn-danger text-white" type="button" value="Logout" style="float:right;" />
+                        }
+                    </div>
                 </div>
             </div>
         </nav>

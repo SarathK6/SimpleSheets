@@ -19,4 +19,8 @@
     <ProjectReference Include="..\SimpleSheets.Services\SimpleSheets.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\Images\" />
+  </ItemGroup>
+
 </Project>
