@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -10,6 +11,7 @@ namespace SimpleSheets.Data.Models
         public int Id { get; set; }
        
         [Required(ErrorMessage="Please select an Employee")]
+        [Remote(action: "IsRoleAssigned", controller: "Admin", ErrorMessage = "Role already assigned")]
         public Guid EmpId { get; set; }
 
         [Required(ErrorMessage ="Please select a Role")]

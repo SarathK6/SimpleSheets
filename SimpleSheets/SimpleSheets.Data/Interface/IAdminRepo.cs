@@ -39,6 +39,14 @@ namespace SimpleSheets.Data.Interface
 
         public EmployeeRoleMap GetEmpRoleMapById(int id);
         public void UpdateEmpRoleMapById(EmployeeRoleMap employeeRoleMap);
+
+        public int IsProjExists(string ProjectTitle);
+
+        public int IsRoleExists(string RoleTitle);
+
+        public int IsTimeTypeExists(string TimeType);
+
+        public int IsRoleAssigned(string empID);
     }
 }
 

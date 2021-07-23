@@ -677,6 +677,135 @@ namespace SimpleSheets.Data.Impls
 
         }
 
+        public int IsProjExists(string title)
+        {
+
+            _logger.LogInformation("Entered into GetProjectById Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                int roles1;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from Projects where ProjectTitle=@ProjectTitle";
+                    var roles = conn.QuerySingleOrDefault<Projects>(query, new { ProjectTitle = title },
+                        commandTimeout: commandTimeout);
+                    if(roles==null)
+                    {
+                        roles1 = 1;
+                    }
+                    else
+                    {
+                        roles1 = 0;
+                    }
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetProjectById Method");
+                return roles1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
+            }
+
+        }
+
+        public int IsRoleAssigned(string EmpId)
+        {
+            _logger.LogInformation("Entered into IsRoleAssigned Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                int roles1;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from EmployeeRoleMap where EmpId=@EmpId";
+                    var roles = conn.QuerySingleOrDefault<EmployeeRoleMap>(query, new { EmpId = EmpId },
+                        commandTimeout: commandTimeout);
+                    if (roles == null)
+                    {
+                        roles1 = 1;
+                    }
+                    else
+                    {
+                        roles1 = 0;
+                    }
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetProjectById Method");
+                return roles1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
+            }
+
+
+        }
+        public int IsRoleExists(string RoleTitle)
+        {
+
+            _logger.LogInformation("Entered into GetProjectById Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                int roles1;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from Role where RoleTitle=@RoleTitle";
+                    var roles = conn.QuerySingleOrDefault<Roles>(query, new { RoleTitle = RoleTitle },
+                        commandTimeout: commandTimeout);
+                    if (roles == null)
+                    {
+                        roles1 = 1;
+                    }
+                    else
+                    {
+                        roles1 = 0;
+                    }
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetProjectById Method");
+                return roles1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
+            }
+
+
+        }
+
         public Employee GetEmployeeById(int id)
         {
 
@@ -778,6 +907,50 @@ namespace SimpleSheets.Data.Impls
                 Task.Delay(timeSpanDelay);
                 throw ex;
 
+            }
+
+
+        }
+
+        public int IsTimeTypeExists(string TimeType)
+        {
+
+            _logger.LogInformation("Entered into GetProjectById Method");
+            var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
+            var pauseBetweenFailures = int.Parse(_config["PauseBeforeRetryInSec"]);
+            var timeSpanDelay = TimeSpan.FromSeconds(pauseBetweenFailures);
+            var commandTimeout = int.Parse(_config["CommandTimeout"]);
+            try
+            {
+                int roles1;
+                using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
+                {
+
+                    string query = "select * from TimeType where TimetypeTitle=@TimetypeTitle";
+                    var roles = conn.QuerySingleOrDefault<Projects>(query, new { TimetypeTitle = TimeType },
+                        commandTimeout: commandTimeout);
+                    if (roles == null)
+                    {
+                        roles1 = 1;
+                    }
+                    else
+                    {
+                        roles1 = 0;
+                    }
+
+                }
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    Priority = CacheItemPriority.High,
+                    AbsoluteExpiration = DateTime.Now.AddDays(7)
+                };
+                _logger.LogInformation("Exited GetProjectById Method");
+                return roles1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
 
 
