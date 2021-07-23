@@ -358,6 +358,73 @@ namespace SimpleSheets.Controllers
 
         }
 
+        #region is name exists already in DB
+        public JsonResult IsProjectExists([Bind(Prefix ="ProjectTitle")] string title)
+        {
+           var result= _adminService.IsProjExists(title);
+            if(result==0)
+            {
+                return Json("Project title Exists already");
+            }
+
+            return Json(true);
+        }
+
+        public JsonResult IsRoleExists([Bind(Prefix = "RoleTitle")] string title)
+        {
+            var result = _adminService.IsRoleExists(title);
+            if (result == 0)
+            {
+                return Json("Role title Exists already");
+            }
+
+            return Json(true);
+
+        }
+
+        public JsonResult IsTimeTypeExists([Bind(Prefix ="TimeTypeTitle")] string timetype)
+        {
+            var result = _adminService.IsTimeTypeExists(timetype);
+            if (result == 0)
+            {
+                return Json("Time Type Exists already");
+            }
+
+            return Json(true);
+        }
+
+        public JsonResult IsRoleAssigned([Bind(Prefix ="EmpId")] Guid guid)
+        {
+            string EmpId = guid.ToString();
+
+            var result = _adminService.IsRoleAssigned(EmpId);
+            if (result == 0)
+            {
+                return Json("Role for this employee has been assingned already. Please Edit that existing record");
+            }
+            return Json(true);
+
+
+
+        }
+
+        public JsonResult IsEmployeeExists([Bind(Prefix = "EmpId")] Guid guid)
+        {
+
+            string empID = guid.ToString();
+            var emp = _genericService.GetmyDetailsfromDb(empID);
+            if(emp==null)
+            {
+                return Json(true);
+
+            }
+            return Json("Employee with this id has been created already. Please choose another employee id");
+
+
+
+        }
+        #endregion
+
 
 
     }

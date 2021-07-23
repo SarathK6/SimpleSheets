@@ -135,6 +135,7 @@ namespace SimpleSheets.Controllers
             timeSheetsView.ApprovedOn = DateTime.Now;
             timeSheetsView.ModifiedOn = DateTime.Now;
             _timeSheetService.UpdateTimesheetStatus(timeSheetsView);
+            timeSheets = _timeSheetService.GetTimeSheetApprovaData(_empId);
             return View("ApproveTimesheets", timeSheets);
         }
         [HttpGet]

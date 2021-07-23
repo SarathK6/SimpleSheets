@@ -13,13 +13,16 @@ namespace SimpleSheets.Data.Models
 
         [Required]
         [Range(1, 10)]
+        [Display(Name = "No. of Hours")]
         public float NoOfHours { get; set; }
 
         [Required]
+        [Display(Name = "Time Type")]
         [Range(1,int.MaxValue,ErrorMessage ="Please select a valid Time type")]
         public int TimeTypeId { get; set; }
 
         [Required]
+        [Display(Name = "Project")]
         [Range(1,int.MaxValue,ErrorMessage ="Please select a valid Project")]
         public int ProjectId { get; set; }
 

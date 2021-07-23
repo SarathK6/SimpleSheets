@@ -11,7 +11,7 @@
             type: "GET",
             error: function (xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
-                toastr.error(err.message);
+                toastr.error(err.message); 
             },
             success: function (data) {
                 PopulationChart(data);
@@ -30,7 +30,11 @@
             title: 'Todays Work Breakdown',
             chartArea: {width: '75%'},
             colors: ['#dc3545', '#28a745','#004085','#17a2b8','#ffc107','#383d41','#007bff'],
-            hAxis: {title: 'Project',minValue: 0},
+            hAxis: {              
+                title: 'Project',
+                titleTextStyle: { bold: 'true' },
+                minValue: 0
+            },
             vAxis: {title: 'Hours'}
         };
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));

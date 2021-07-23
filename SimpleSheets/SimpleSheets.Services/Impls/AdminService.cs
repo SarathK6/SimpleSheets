@@ -57,6 +57,8 @@ namespace SimpleSheets.Services.Impls
             return _adminRepo.GetEmployeeProjectMap();
         }
 
+       
+
         public IEnumerable<Roles> GetRoles()
         {
             return _adminRepo.GetRoles();
@@ -136,6 +138,27 @@ namespace SimpleSheets.Services.Impls
         public void UpdateEmpRoleMapById(EmployeeRoleMap employeeRole)
         {
             _adminRepo.UpdateEmpRoleMapById(employeeRole);
+        }
+
+        public int IsProjExists(string title)
+        {
+            return _adminRepo.IsProjExists(title);
+        }
+
+        public int IsRoleExists(string RoleTitle)
+        {
+            return _adminRepo.IsRoleExists(RoleTitle);
+
+        }
+
+        public int IsTimeTypeExists(string TimeType)
+        {
+            return _adminRepo.IsTimeTypeExists(TimeType);
+        }
+
+        public int IsRoleAssigned(string EmpId)
+        {
+            return _adminRepo.IsRoleAssigned(EmpId);
         }
     }
 }

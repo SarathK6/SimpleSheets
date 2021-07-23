@@ -128,7 +128,7 @@ namespace SimpleSheets.Data.Impls
 
             }
         }
-        public Employee GetmyDetailsfromDb(string id)
+        public Employee GetmyDetailsfromDb(string Empid)
         {
 
 
@@ -144,7 +144,7 @@ namespace SimpleSheets.Data.Impls
                 {
 
                     string query = "select * from Employee where empId=@Id";
-                    roles = conn.QuerySingleOrDefault<Employee>(query, new { Id = id },
+                    roles = conn.QuerySingleOrDefault<Employee>(query, new { Id = Empid },
                         commandTimeout: commandTimeout);
 
                 }
