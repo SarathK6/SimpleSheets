@@ -38,7 +38,7 @@ namespace SimpleSheets.Controllers
         [HttpGet]
         public JsonResult PopulationChart()
         {
-            var timeSheets = _dashboardService.GetEmployeeWorkPerProject(_empId);
+            var timeSheets = _dashboardService.GetEmployeeWorkPerProject(_empId,DateTime.Now);
             return Json(timeSheets);
         }
         [HttpGet]
@@ -47,6 +47,33 @@ namespace SimpleSheets.Controllers
             var timeSheets = _dashboardService.GetEmployeeWorkHoursInAWeek(_empId);
             timeSheets.Reverse();
             return Json(timeSheets);
+        }
+        public JsonResult MaxHours([Bind(Prefix = "NoOfHours")] float noofhours,DateTime TimeSheetEntryDate)
+        { 
+            var model = _dashboardService.GetEmployeeWorkPerProject(_empId,TimeSheetEntryDate);
+            var filledHours = model.Select(s => s.NoOfHours).Sum();           
+            if (filledHours + noofhours <= 9)
+            {
+                
+                return Json(true);
+            }  
+                
+            else
+            {
+                if(9-filledHours>0)
+                {
+                    return Json($"You can fill maximum of {9-filledHours} hours for {TimeSheetEntryDate.ToString("yyyy-MM-dd")}");
+                }
+                
+                else
+                {
+                    return Json($"You exceeded limits for hours on {TimeSheetEntryDate.ToString("yyyy-MM-dd")}");
+
+                }
+            } 
+
+            
+
         }
     }
 }

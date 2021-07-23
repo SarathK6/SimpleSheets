@@ -20,7 +20,7 @@ namespace SimpleSheets.Data.Impls
 
         }
 
-        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId)
+        public IEnumerable<EmployeeWorkPerProject> GetEmployeeWorkPerProject(string empId,DateTime dateTime)
         {
             _logger.LogInformation("Entered into GetEmployeeWorkPerProject Method");
             var maxRetryAttempts = int.Parse(_config["MaxRetryAttempts"]);
@@ -35,7 +35,7 @@ namespace SimpleSheets.Data.Impls
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
                     string query = "select ProjectTitle,NoOfHours,TimeSheetEntryDate from vw_EmployeeWorkPerProject where empid=@Empid and TimeSheetEntryDate=@Datetime";
-                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid=empId,  Datetime=DateTime.Now.Date},
+                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid = empId, Datetime = dateTime.Date},
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
@@ -73,7 +73,7 @@ namespace SimpleSheets.Data.Impls
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
                     string query = "Select TimeSheetEntryDate,sum(NoOfHours) As NoOfHours from Timesheet  where empid=@Empid and TimeSheetEntryDate>@Datetime and TimeTypeId=1 group by TimeSheetEntryDate";
-                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid = empId, Datetime = DateTime.Now.AddDays(-7)},
+                    employeeWorkPerProjects = conn.Query<EmployeeWorkPerProject>(query, new { Empid = empId, Datetime = DateTime.Now.AddDays(-7) },
                         commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
