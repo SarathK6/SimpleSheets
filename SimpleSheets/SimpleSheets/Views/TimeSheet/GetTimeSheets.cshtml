@@ -5,26 +5,26 @@
 </p>
 <div class="container">
     <div class="row">
-        <div class="col-xs-5 col-sm-5 col-md-5">
-            <form asp-action="GetSearchedTimeSheets" method="Get">
+        <div class="col-xs-5 col-sm-5 col-md-5" style="display: flex;">
+            <form asp-action="GetSearchedTimeSheets" method="Get" style="padding: 5px;margin-right: 10px;">
                 <div class="form-actions no-color">
                     <p>
-                        Find by Status: <select name="SearchString" class="form-control" style="width:150px;max-width:150px;" />
+                       <select name="SearchString" class="form-control" style="width:150px;max-width:150px;display:inline;">
                         <option value="All">All</option>
                         <option value="Approved">Approved</option>
                         <option value="Rejected">Rejected</option>
                         <option value="Pending">Pending</option>
                         </select>
-                        <input type="submit" value="Search" class="btn btn-success" />
+                        <input type="submit" value="Search" class="btn btn-success" style="background: #0c5460;border-color: unset;"/>
                     </p>
                 </div>
             </form>
-        </div>
-        <div class="col-xs-7 col-sm-7 col-md-7">
-            <form asp-action="GetDatedTimeSheets" method="get">
+        @*</div>
+        <div class="col-xs-7 col-sm-7 col-md-7">*@
+            <form asp-action="GetDatedTimeSheets" method="get" style="padding: 5px;margin-right: 10px;">
                 <p>
-                    <input type="date" name="Searchdate" />
-                    <input type="submit" value="Filter" class="btn btn-success" />
+                    <input type="date" name="Searchdate" class="form-control" style="width:170px;max-width:170px;display:inline;"/>
+                    <input type="submit" value="Search" class="btn btn-success" style="background: #0c5460;border-color: unset;"/>
                 </p>
             </form>
         </div>

@@ -35,13 +35,13 @@
                     <a class="nav-link text-white" asp-area="">Hey, <b>@ViewData["Username"]</b></a>
                     @using (Html.BeginForm("Logout", "TimeSheet"))
                     {
-                        <input asp-area="MicrosoftIdentity" class="logout btn btn-danger text-white" type="button" value="Logout" />
+                        <input asp-area="MicrosoftIdentity" class="logout btn btn-danger text-white" type="button" value="Logout" style="float:right;" />
                     }
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="overflow: auto;height: 77vh;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
