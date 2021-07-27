@@ -68,10 +68,8 @@ namespace SimpleSheets.Data.Impls
                 attempts++;
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
                 {
-                    string query = "Insert into EmployeeRoleMap(EmpId,Role,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)"
-                        + "VALUES(@EmpId,@Role,@CreatedOn,@CreatedBy,@ModifiedOn,@ModifiedBy)";
-                    conn.ExecuteScalar<Projects>(query, employeeRoleMap,
-                        commandTimeout: commandTimeout);
+                    string query = "Insert into EmployeeRoleMap(EmpId,Role,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)" + "VALUES(@EmpId,@Role,@CreatedOn,@CreatedBy,@ModifiedOn,@ModifiedBy)";
+                    conn.ExecuteScalar<Projects>(query, employeeRoleMap, commandTimeout: commandTimeout);
                     var cacheOptions = new MemoryCacheEntryOptions()
                     {
                         Priority = CacheItemPriority.High,
@@ -515,6 +513,8 @@ namespace SimpleSheets.Data.Impls
             /*eleteEmployeeProjectMapEmployee(id);// delete empl*/
             var commandTimeout = int.Parse(_config["CommandTimeout"]);
 
+            // method() = fake input;
+
             try
             {
                 using (var conn = _dbConnectionFactory.GetConnection(_itrConnectionName))
@@ -694,7 +694,7 @@ namespace SimpleSheets.Data.Impls
                     string query = "select * from Projects where ProjectTitle=@ProjectTitle";
                     var roles = conn.QuerySingleOrDefault<Projects>(query, new { ProjectTitle = title },
                         commandTimeout: commandTimeout);
-                    if(roles==null)
+                    if (roles == null)
                     {
                         roles1 = 1;
                     }

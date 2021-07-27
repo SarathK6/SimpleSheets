@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSheets.Data", "Simple
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSheets.Services", "SimpleSheets.Services\SimpleSheets.Services.csproj", "{982E2C52-8D56-48FB-A0B4-AF0197D41574}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheets.Services.Tests", "SimpleSheets.Services.Tests\SimpleSheets.Services.Tests.csproj", "{8017B54F-F14B-4D40-B9A0-C9E6593E2CD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{982E2C52-8D56-48FB-A0B4-AF0197D41574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8017B54F-F14B-4D40-B9A0-C9E6593E2CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8017B54F-F14B-4D40-B9A0-C9E6593E2CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8017B54F-F14B-4D40-B9A0-C9E6593E2CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8017B54F-F14B-4D40-B9A0-C9E6593E2CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
